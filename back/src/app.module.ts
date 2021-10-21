@@ -21,6 +21,8 @@ import { Students,Teachers } from "./users/entities/user.entity";
         Students,
         Teachers,
       ],
+      dropSchema: false,
+      migrationsRun: true,
       synchronize: true,
     }),
   ],
