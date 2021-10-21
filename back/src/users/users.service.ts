@@ -56,13 +56,13 @@ export class UsersService {
       switch(type)
       {
         case "student":
-          user = Student.findOne({email: email});
+          user = await Student.findOne({email: email});
           if(user && bcrypt.compare(password, user.password))
             return {status: 200, result: user};
           else
             return {status: 400, msg: "User not found!"};
         case "teacher":
-          user = Teacher.findOne({email: email});
+          user = await Teacher.findOne({email: email});
           if(user && bcrypt.compare(password, user.password))
             return {status: 200, result: user};
           else
