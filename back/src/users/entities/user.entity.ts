@@ -1,8 +1,9 @@
-import { Entity,Column,PrimaryGeneratedColumn } from "typeorm";
+import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany,ManyToOne } from "typeorm";
+import { IsEmail,IsNotEmpty } from "class-validator";
 
 @Entity()
-export class Students {
-    @PrimaryGeneratedColumn()
+export class Teacher extends BaseEntity {
+    @PrimaryGeneratedColumn("increment")
     id: number;
 
     @Column()
@@ -15,15 +16,15 @@ export class Students {
     password: string;
 
     @Column()
-    birth_date: Date;
+    birthday: Date;
 
-    @Column({default: null})
-    teacher_id: number;
+    @ManyToOne(() => Student, student => student.teacher)
+    student: Student[];
 }
 
 @Entity()
-export class Teachers {
-    @PrimaryGeneratedColumn()
+export class Student extends BaseEntity {
+    @PrimaryGeneratedColumn("increment")
     id: number;
 
     @Column()
@@ -36,5 +37,8 @@ export class Teachers {
     password: string;
 
     @Column()
-    birth_date: Date;
+    birthday: Date;
+
+    @OneToMany(() => Teacher, teacher => teacher.student)
+    teacher: Teacher;
 }
