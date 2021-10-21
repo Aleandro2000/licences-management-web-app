@@ -3,10 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { Students,Teachers } from "./users/entities/user.entity";
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -17,10 +19,10 @@ import { Students,Teachers } from "./users/entities/user.entity";
       database: process.env.DB_NAME,
       entities: [
         Students,
-        Teachers
+        Teachers,
       ],
       synchronize: true,
-    })
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
