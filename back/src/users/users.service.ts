@@ -2,9 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { Teacher,Student } from "./entities/user.entity";
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
+  constructor(private readonly jwtService: JwtService) {}
 
   async register(userDto: UserDto): Promise<any> {
     try {
@@ -20,7 +22,7 @@ export class UsersService {
             user.email = userDto.email;
             user.password = await bcrypt.hash(userDto.password, await bcrypt.genSalt());
             await Student.save(user);
-            return {status: 200, result: user};
+            return {status: 200, result: await this.jwtService.sign({user})};
           }
           else
             return {status: 400, msg: "User already exists!"};
@@ -33,7 +35,7 @@ export class UsersService {
             user.email = userDto.email;
             user.password = await bcrypt.hash(userDto.password, await bcrypt.genSalt());
             await Teacher.save(user);
-            return {status: 200, result: user};
+            return {status: 200, result: await this.jwtService.sign({user})};
           }
           else
             return {status: 400, msg: "User already exists!"};
@@ -54,13 +56,13 @@ export class UsersService {
         case "student":
           user = await Student.findOne({email: userDto.email});
           if (user && bcrypt.compare(userDto.password, user.password))
-            return {status: 200, result: user};
+            return {status: 200, result: await this.jwtService.sign(user)};
           else
             return {status: 400, msg: "User not found!"};
         case "teacher":
           user = await Teacher.findOne({email: userDto.email});
           if (user && bcrypt.compare(userDto.password, user.password))
-            return {status: 200, result: user};
+            return {status: 200, result: await this.jwtService.sign(user)};
           else
             return {status: 400, msg: "User not found!"};
         default:
