@@ -1,18 +1,17 @@
 import { IsEmail,IsNotEmpty } from "class-validator";
 
 export class UserDto {
+    readonly id: number;
+
     @IsNotEmpty()
-    type: string;
+    readonly type: string;
 
     @IsEmail()
-    email: string;
+    readonly email: string;
 
     @IsNotEmpty()
-    username: string;
+    readonly username: string;
 
     @IsNotEmpty()
-    password: string;
-
-    @IsNotEmpty()
-    birthday: Date;
+    readonly password: string;
 }

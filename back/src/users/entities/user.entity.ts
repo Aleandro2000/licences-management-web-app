@@ -15,9 +15,6 @@ export class Teacher extends BaseEntity {
     @Column()
     password: string;
 
-    @Column()
-    birthday: Date;
-
     @Column({default: false})
     isAdmin: boolean;
 
@@ -38,9 +35,6 @@ export class Student extends BaseEntity {
 
     @Column()
     password: string;
-
-    @Column()
-    birthday: Date;
 
     @OneToMany(() => Teacher, teacher => teacher.student)
     teacher: Teacher;
