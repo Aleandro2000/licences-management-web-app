@@ -13,7 +13,7 @@ export class UsersService {
       {
         case "student":
           user = await Student.findOne({email: userDto.email});
-          if(!user)
+          if (!user)
           {
             user = new Student();
             user.username = userDto.username;
