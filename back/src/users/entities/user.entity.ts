@@ -15,9 +15,6 @@ export class Teacher extends BaseEntity {
     @Column()
     password: string;
 
-    @Column({default: false})
-    isAdmin: boolean;
-
     @ManyToOne(() => Student, student => student.teacher)
     student: Student[];
 }
