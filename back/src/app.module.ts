@@ -5,11 +5,6 @@ import { UsersModule } from './users/users.module';
 import { connectionOptions } from './config/database.config';
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { createDatabase } from "typeorm-extension";
-
-(async () => {
-  await createDatabase({ifNotExist: true},connectionOptions);
-})();
 
 @Module({
   imports: [
