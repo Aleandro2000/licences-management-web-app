@@ -2,16 +2,16 @@ import { Controller, Post, Body, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import {UserDto} from "./dto/user.dto";
 
-@Controller('users')
+@Controller()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post("/register")
+  @Post("register")
   register(@Body() userDto: UserDto) {
     return this.usersService.register(userDto);
   }
 
-  @Post("/login")
+  @Post("login")
   findAll(@Body() userDto: UserDto) {
     return this.usersService.login(userDto);
   }

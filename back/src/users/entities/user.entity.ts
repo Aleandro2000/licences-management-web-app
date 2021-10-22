@@ -18,6 +18,9 @@ export class Teacher extends BaseEntity {
     @Column()
     birthday: Date;
 
+    @Column({default: false})
+    isAdmin: boolean;
+
     @ManyToOne(() => Student, student => student.teacher)
     student: Student[];
 }
