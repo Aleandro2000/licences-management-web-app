@@ -7,12 +7,12 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post("register")
-  register(@Body() userDto: UserDto) {
-    return this.usersService.register(userDto);
+  async register(@Body() userDto: UserDto) {
+    return await this.usersService.register(userDto);
   }
 
   @Post("login")
-  findAll(@Body() userDto: UserDto) {
-    return this.usersService.login(userDto);
+  async findAll(@Body() userDto: UserDto) {
+    return await this.usersService.login(userDto);
   }
 }
