@@ -1,5 +1,3 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { ConnectOpts } from 'net';
 import { ConnectionOptions } from 'typeorm';
 
 export const connectionOptions: ConnectionOptions = {

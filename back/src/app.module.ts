@@ -5,6 +5,9 @@ import { UsersModule } from './users/users.module';
 import { connectionOptions } from './config/database.config';
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { LicencesModule } from './licences/licences.module';
+import { DiplomaModule } from './diploma/diploma.module';
+import { UniversitiesModule } from './universities/universities.module';
 
 @Module({
   imports: [
@@ -14,6 +17,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       useFactory: async (configService: ConfigService) => (connectionOptions),
     }),
     UsersModule,
+    LicencesModule,
+    DiplomaModule,
+    UniversitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
