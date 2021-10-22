@@ -1,5 +1,4 @@
 import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany,ManyToOne } from "typeorm";
-import { IsEmail,IsNotEmpty } from "class-validator";
 
 @Entity()
 export class Teacher extends BaseEntity {
