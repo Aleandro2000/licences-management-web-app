@@ -1,34 +1,32 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UniversitiesService } from './universities.service';
-import { CreateUniversityDto } from './dto/create-university.dto';
-import { UpdateUniversityDto } from './dto/update-university.dto';
+import { UniversityDto } from './dto/university.dto';
 
-@Controller('universities')
+@Controller('/api/v1/universities')
 export class UniversitiesController {
   constructor(private readonly universitiesService: UniversitiesService) {}
 
-  @Post()
-  create(@Body() createUniversityDto: CreateUniversityDto) {
-    return this.universitiesService.create(createUniversityDto);
+  @Post("create")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async create(@Body() universityDto: UniversityDto) {
+    return await this.universitiesService.create(universityDto);
   }
 
-  @Get()
-  findAll() {
-    return this.universitiesService.findAll();
+  @Post("read")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async read(@Body() universityDto: UniversityDto) {
+    return await this.universitiesService.read(universityDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.universitiesService.findOne(+id);
+  @Post("update")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async update(@Body() universityDto: UniversityDto) {
+    return await this.universitiesService.update(universityDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUniversityDto: UpdateUniversityDto) {
-    return this.universitiesService.update(+id, updateUniversityDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.universitiesService.remove(+id);
+  @Delete("delete")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async delete(@Body() universityDto: UniversityDto) {
+    return await this.universitiesService.delete(universityDto);
   }
 }

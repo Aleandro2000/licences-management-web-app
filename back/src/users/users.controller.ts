@@ -2,7 +2,7 @@ import { Controller, Post, Body, Delete, ValidationPipe, UsePipes } from '@nestj
 import { UsersService } from './users.service';
 import {UserDto} from "./dto/user.dto";
 
-@Controller("api/v1")
+@Controller("api/v1/auth")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

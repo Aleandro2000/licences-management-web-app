@@ -1,4 +1,5 @@
 import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany,ManyToOne } from "typeorm";
+import { University } from "../../universities/entities/university.entity";
 
 @Entity()
 export class Teacher extends BaseEntity {
@@ -16,6 +17,9 @@ export class Teacher extends BaseEntity {
 
     @ManyToOne(() => Student, student => student.teacher)
     student: Student[];
+    
+    @ManyToOne(() => University, university => university.student)
+    university: University[];
 }
 
 @Entity()
@@ -34,4 +38,7 @@ export class Student extends BaseEntity {
 
     @OneToMany(() => Teacher, teacher => teacher.student)
     teacher: Teacher;
+    
+    @ManyToOne(() => University, university => university.student)
+    university: University[];
 }
