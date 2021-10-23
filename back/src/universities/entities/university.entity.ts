@@ -1,5 +1,6 @@
 import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany,ManyToOne } from "typeorm";
-import { Student,Teacher } from "../../users/entities/user.entity"
+import { Student,Teacher } from "../../users/entities/user.entity";
+import { Licence } from "../../licences/entities/licence.entity";
 
 @Entity()
 export class University extends BaseEntity {
@@ -9,9 +10,12 @@ export class University extends BaseEntity {
     @Column()
     name: string;
 
-    @OneToMany(() => Student, student => student.university)
-    student: Student;
+    @ManyToOne(() => Student, student => student.university)
+    student: Student[];
 
-    @OneToMany(() => Teacher, teacher => teacher.university)
-    teacher: Teacher;
+    @ManyToOne(() => Teacher, teacher => teacher.university)
+    teacher: Teacher[];
+
+    @OneToMany(() => Licence, licence => licence.university)
+    licence: Licence;
 }
