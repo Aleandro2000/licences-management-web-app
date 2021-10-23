@@ -6,6 +6,12 @@ import { UniversityDto } from './dto/university.dto';
 export class UniversitiesController {
   constructor(private readonly universitiesService: UniversitiesService) {}
 
+  @Post("findall")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async findAll() {
+    return await this.universitiesService.findAll();
+  }
+
   @Post("create")
   @UsePipes(new ValidationPipe({transform: true}))
   async create(@Body() universityDto: UniversityDto) {

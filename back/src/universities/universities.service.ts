@@ -5,6 +5,15 @@ import { University } from "./entities/university.entity";
 
 @Injectable()
 export class UniversitiesService {
+  async findAll(): Promise<any> {
+    try {
+      return {status: 200, result: await University.find({})};
+    }
+    catch (err) {
+      return {status: 400, msg: err};
+    }
+  }
+
   async create(universityDto: UniversityDto): Promise<any> {
     try {
       if (universityDto.name)
