@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserDto } from './dto/user.dto';
+import { UserDto,TeacherDto } from './dto/user.dto';
 import { Student } from "./entities/student.entity";
 import { Teacher } from "./entities/teacher.entity";
 import * as bcrypt from 'bcrypt';
@@ -8,6 +8,16 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class UsersService {
   constructor(private readonly jwtService: JwtService) {}
+
+  async addStudent(teacherDto: TeacherDto): Promise<any> {
+    try {
+      await Student.update({id: teacherDto.studentId},{teacherId: teacherDto.teacherId});
+      return {status: 200, msg: "Teacher assigned!"};
+    }
+    catch (err) {
+      return {status: 400, msg: err};
+    }
+  }
 
   async register(userDto: UserDto): Promise<any> {
     try {

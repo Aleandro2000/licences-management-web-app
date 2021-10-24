@@ -15,3 +15,11 @@ export class UserDto {
     @IsNotEmpty()
     readonly password: string;
 }
+
+export class TeacherDto {
+    @IsNotEmpty()
+    readonly studentId: number;
+
+    @IsNotEmpty()
+    readonly teacherId: number;
+}

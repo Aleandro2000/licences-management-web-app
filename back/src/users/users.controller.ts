@@ -1,10 +1,16 @@
 import { Controller, Post, Body, Delete, ValidationPipe, UsePipes } from '@nestjs/common';
 import { UsersService } from './users.service';
-import {UserDto} from "./dto/user.dto";
+import { UserDto,TeacherDto } from "./dto/user.dto";
 
 @Controller("api/v1/auth")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post("addstudent")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async addStudent(@Body() teacherDto: TeacherDto) {
+    return await this.usersService.addStudent(teacherDto);
+  }
 
   @Post("register")
   @UsePipes(new ValidationPipe({transform: true}))
