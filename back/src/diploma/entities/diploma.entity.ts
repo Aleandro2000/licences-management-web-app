@@ -8,7 +8,7 @@ export class Diploma extends BaseEntity {
     id: number;
 
     @Column()
-    file: BinaryType;
+    grade: number;
 
     @ManyToOne(() => Student, student => student.licence)
     @JoinColumn({name: "studentId"})

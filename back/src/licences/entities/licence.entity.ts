@@ -8,7 +8,10 @@ export class Licence extends BaseEntity {
     id: number;
 
     @Column()
-    file: BinaryType;
+    title: string;
+
+    @Column()
+    content: string;
 
     @ManyToOne(() => Student, student => student.licence)
     @JoinColumn({name: "studentId"})

@@ -1,5 +1,6 @@
 export class LicenceDto {
     readonly studentId: number;
     readonly universityId: number;
-    readonly file: BinaryType;
+    readonly title: string;
+    readonly content: string;
 }

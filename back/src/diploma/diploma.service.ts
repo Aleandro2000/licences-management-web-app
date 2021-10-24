@@ -6,13 +6,13 @@ import { Diploma } from "./entities/diploma.entity";
 export class DiplomaService {
   async upload(diplomaDto: DiplomaDto): Promise<any> {
     try{
-      if(diplomaDto.studentId&&diplomaDto.universityId&&diplomaDto.file)
+      if(diplomaDto.studentId&&diplomaDto.universityId&&diplomaDto.grade)
       {
         let diploma;
         diploma = await Diploma.find({studentId: diplomaDto.studentId});
         if(diploma)
         {
-          diploma = await Diploma.update({studentId: diplomaDto.studentId},{file: diplomaDto.file,universityId: diplomaDto.universityId});
+          diploma = await Diploma.update({studentId: diplomaDto.studentId},{grade: diplomaDto.grade,universityId: diplomaDto.universityId});
           return {staus: 200, result: diploma};
         }
         else
@@ -20,7 +20,7 @@ export class DiplomaService {
           diploma = new Diploma();
           diploma.studentId = diplomaDto.studentId;
           diploma.universityId = diplomaDto.universityId;
-          diploma.file = diplomaDto.file;
+          diploma.grade = diplomaDto.grade;
           await diploma.save(diploma);
           return {staus: 200, result: diploma};
         }
