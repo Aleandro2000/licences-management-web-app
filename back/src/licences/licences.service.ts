@@ -26,10 +26,10 @@ export class LicencesService {
         }
       }
       else
-        return {status: 400, msg: "Failed to upload licence!"};
+        return {status: 400, message: "Failed to upload licence!"};
     }
     catch (err){
-      return {status: 400, msg: err};
+      return {status: 400, message: err};
     }
   }
 
@@ -38,7 +38,7 @@ export class LicencesService {
       return {status: 200, result: await Licence.find({})};
     }
     catch (err){
-      return {status: 400, msg: err};
+      return {status: 400, message: err};
     }
   }
 
@@ -47,13 +47,13 @@ export class LicencesService {
       if(licenceDto.studentId)
       {
         await Licence.delete({studentId: licenceDto.studentId});
-        return {status: 200, msg: "Licence succesfully deleted!"};
+        return {status: 200, message: "Licence succesfully deleted!"};
       }
       else
-        return {status: 400, msg: "Failed to delete licence!"};
+        return {status: 400, message: "Failed to delete licence!"};
     }
     catch (err){
-      return {status: 400, msg: err};
+      return {status: 400, message: err};
     }
   }
 }

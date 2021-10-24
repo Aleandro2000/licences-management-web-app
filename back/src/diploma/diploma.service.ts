@@ -26,10 +26,10 @@ export class DiplomaService {
         }
       }
       else
-        return {status: 400, msg: "Failed to upload diploma!"};
+        return {status: 400, message: "Failed to upload diploma!"};
     }
     catch (err){
-      return {status: 400, msg: err};
+      return {status: 400, message: err};
     }
   }
 
@@ -38,7 +38,7 @@ export class DiplomaService {
       return {status: 200, result: await Diploma.find({})};
     }
     catch (err){
-      return {status: 400, msg: err};
+      return {status: 400, message: err};
     }
   }
 
@@ -47,13 +47,13 @@ export class DiplomaService {
       if(diplomaDto.studentId)
       {
         await Diploma.delete({studentId: diplomaDto.studentId});
-        return {status: 200, msg: "diploma succesfully deleted!"};
+        return {status: 200, message: "diploma succesfully deleted!"};
       }
       else
-        return {status: 400, msg: "Failed to delete diploma!"};
+        return {status: 400, message: "Failed to delete diploma!"};
     }
     catch (err){
-      return {status: 400, msg: err};
+      return {status: 400, message: err};
     }
   }
 }
