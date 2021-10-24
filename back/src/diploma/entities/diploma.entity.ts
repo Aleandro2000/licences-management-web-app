@@ -16,11 +16,11 @@ export class Diploma extends BaseEntity {
     @Column()
     universityId: number;
 
-    @ManyToOne(() => Student, student => student.licence)
+    @ManyToOne(() => Student, student => student.diploma)
     @JoinColumn({name: "studentId"})
     student: Student;
 
-    @ManyToOne(() => University, university => university.licence)
+    @ManyToOne(() => University, university => university.diploma)
     @JoinColumn({name: "universityId"})
     university: University;
 }
