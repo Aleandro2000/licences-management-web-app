@@ -22,7 +22,6 @@ export class UniversitiesService {
         {
           university = new University();
           university.studentId = universityDto.studentId;
-          university.teacherId = universityDto.teacherId;
           university.name = universityDto.name;
           await University.save(university);
           return {status: 200, result: university};

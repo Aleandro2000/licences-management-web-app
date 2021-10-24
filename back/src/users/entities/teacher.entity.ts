@@ -21,7 +21,4 @@ export class Teacher extends BaseEntity {
 
     @OneToMany(() => Student, student => student.teacher)
     student: Student;
-    
-    @OneToMany(() => University, university => university.student)
-    university: University;
 }
