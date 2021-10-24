@@ -15,12 +15,14 @@ export class UniversitiesService {
 
   async create(universityDto: UniversityDto): Promise<any> {
     try {
-      if (universityDto.name)
+      if (universityDto.name && universityDto.studentId && universityDto.teacherId)
       {
         let university = await University.findOne({name: universityDto.name});
         if (!university)
         {
           university = new University();
+          university.studentId = universityDto.studentId;
+          university.teacherId = universityDto.teacherId;
           university.name = universityDto.name;
           await University.save(university);
           return {status: 200, result: university};
@@ -29,7 +31,7 @@ export class UniversitiesService {
           return {status: 400, message: "Failed to append university!"};
       }
       else
-        return {status: 400, message: "University name is empty!"};
+        return {status: 400, message: "Failed to append university!"};
     }
     catch (err) {
       return {status: 400, message: err};

@@ -12,14 +12,18 @@ export class Licence extends BaseEntity {
 
     @Column()
     content: string;
+    
+    @Column()
+    studentId: number;
+    
+    @Column()
+    universityId: number;
 
     @ManyToOne(() => Student, student => student.licence)
     @JoinColumn({name: "studentId"})
     student: Student;
-    studentId: number;
 
     @ManyToOne(() => University, university => university.licence)
     @JoinColumn({name: "universityId"})
     university: University;
-    universityId: number;
 }

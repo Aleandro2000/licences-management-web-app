@@ -18,10 +18,12 @@ export class Student extends BaseEntity {
     @Column()
     password: string;
 
+    @Column()
+    teacherId: number;
+
     @ManyToOne(() => Teacher, teacher => teacher.student)
     @JoinColumn({name: "teacherId"})
     teacher: Teacher;
-    teacherId: number;
     
     @OneToMany(() => University, university => university.student)
     university: University;
