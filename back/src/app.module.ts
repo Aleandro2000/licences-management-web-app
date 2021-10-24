@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { connectionOptions } from './config/database.config';
 import { ConfigModule, ConfigService } from "@nestjs/config";
@@ -21,7 +19,5 @@ import { UniversitiesModule } from './universities/universities.module';
     DiplomaModule,
     UniversitiesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
