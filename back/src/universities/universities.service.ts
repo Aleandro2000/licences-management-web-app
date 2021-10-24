@@ -15,7 +15,7 @@ export class UniversitiesService {
 
   async create(universityDto: UniversityDto): Promise<any> {
     try {
-      if (universityDto.name && universityDto.studentId && universityDto.teacherId)
+      if (universityDto.name && universityDto.studentId)
       {
         let university = await University.findOne({name: universityDto.name});
         if (!university)
