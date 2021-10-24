@@ -1,34 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { LicencesService } from './licences.service';
-import { CreateLicenceDto } from './dto/create-licence.dto';
-import { UpdateLicenceDto } from './dto/update-licence.dto';
+import { LicenceDto } from './dto/licence.dto';
 
-@Controller('licences')
+@Controller('api/v1/licence')
 export class LicencesController {
   constructor(private readonly licencesService: LicencesService) {}
 
-  @Post()
-  create(@Body() createLicenceDto: CreateLicenceDto) {
-    return this.licencesService.create(createLicenceDto);
+  @Post("upload")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async upload(@Body() licenceDto: LicenceDto) {
+    return await this.licencesService.upload(licenceDto);
   }
 
-  @Get()
-  findAll() {
-    return this.licencesService.findAll();
+  @Post("findall")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async findAll() {
+    return await this.licencesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.licencesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLicenceDto: UpdateLicenceDto) {
-    return this.licencesService.update(+id, updateLicenceDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.licencesService.remove(+id);
+  @Delete("delete")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async delete(@Body() licenceDto: LicenceDto) {
+    return await this.licencesService.delete(licenceDto);
   }
 }

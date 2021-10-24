@@ -1,5 +1,5 @@
-import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany,ManyToOne } from "typeorm";
-import { Student } from "../../users/entities/user.entity";
+import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,ManyToOne,JoinColumn } from "typeorm";
+import { Student } from "../../users/entities/student.entity";
 import { University } from "../../universities/entities/university.entity";
 
 @Entity()
@@ -11,8 +11,12 @@ export class Diploma extends BaseEntity {
     file: BinaryType;
 
     @ManyToOne(() => Student, student => student.licence)
-    student: Student[];
+    @JoinColumn({name: "studentId"})
+    student: Student;
+    studentId: number;
 
     @ManyToOne(() => University, university => university.licence)
-    university: University[];
+    @JoinColumn({name: "universityId"})
+    university: University;
+    universityId: number;
 }

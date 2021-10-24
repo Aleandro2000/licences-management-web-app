@@ -1,26 +1,59 @@
 import { Injectable } from '@nestjs/common';
-import { CreateLicenceDto } from './dto/create-licence.dto';
-import { UpdateLicenceDto } from './dto/update-licence.dto';
+import { LicenceDto } from './dto/licence.dto';
+import { Licence } from "./entities/licence.entity";
 
 @Injectable()
 export class LicencesService {
-  create(createLicenceDto: CreateLicenceDto) {
-    return 'This action adds a new licence';
+  async upload(licenceDto: LicenceDto): Promise<any> {
+    try{
+      if(licenceDto.studentId&&licenceDto.universityId&&licenceDto.file)
+      {
+        let licence;
+        licence = await Licence.find({studentId: licenceDto.studentId});
+        if(licence)
+        {
+          licence = await Licence.update({studentId: licenceDto.studentId},{file: licenceDto.file,universityId: licenceDto.universityId});
+          return {staus: 200, result: licence};
+        }
+        else
+        {
+          licence = new Licence();
+          licence.studentId = licenceDto.studentId;
+          licence.universityId = licenceDto.universityId;
+          licence.file = licenceDto.file;
+          await Licence.save(licence);
+          return {staus: 200, result: licence};
+        }
+      }
+      else
+        return {status: 400, msg: "Failed to upload licence!"};
+    }
+    catch (err){
+      return {status: 400, msg: err};
+    }
   }
 
-  findAll() {
-    return `This action returns all licences`;
+  async findAll(): Promise<any> {
+    try{
+      return {status: 200, result: await Licence.find({})};
+    }
+    catch (err){
+      return {status: 400, msg: err};
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} licence`;
-  }
-
-  update(id: number, updateLicenceDto: UpdateLicenceDto) {
-    return `This action updates a #${id} licence`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} licence`;
+  async delete(licenceDto: LicenceDto): Promise<any> {
+    try{
+      if(licenceDto.studentId)
+      {
+        await Licence.delete({studentId: licenceDto.studentId});
+        return {status: 200, msg: "Licence succesfully deleted!"};
+      }
+      else
+        return {status: 400, msg: "Failed to delete licence!"};
+    }
+    catch (err){
+      return {status: 400, msg: err};
+    }
   }
 }
