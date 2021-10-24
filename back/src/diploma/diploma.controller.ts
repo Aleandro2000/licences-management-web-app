@@ -1,33 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { DiplomaService } from './diploma.service';
 import { DiplomaDto } from './dto/diploma.dto';
 
-@Controller('diploma')
+@Controller('api/v1/diploma')
 export class DiplomaController {
   constructor(private readonly diplomaService: DiplomaService) {}
 
-  @Post()
-  create(@Body() diplomaDto: DiplomaDto) {
-    return this.diplomaService.create(diplomaDto);
+  @Post("upload")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async upload(@Body() diplomaDto: DiplomaDto) {
+    return await this.diplomaService.upload(diplomaDto);
   }
 
-  @Get()
-  findAll() {
-    return this.diplomaService.findAll();
+  @Post("findall")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async findAll() {
+    return await this.diplomaService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.diplomaService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string) {
-    return this.diplomaService.update(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.diplomaService.remove(+id);
+  @Delete("delete")
+  @UsePipes(new ValidationPipe({transform: true}))
+  async delete(@Body() diplomaDto: DiplomaDto) {
+    return await this.diplomaService.delete(diplomaDto);
   }
 }
