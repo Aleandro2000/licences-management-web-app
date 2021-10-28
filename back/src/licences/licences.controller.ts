@@ -1,6 +1,7 @@
-import { Controller, Post, Body, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
 import { LicencesService } from './licences.service';
 import { LicenceDto } from './dto/licence.dto';
+import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
 
 @Controller('api/v1/licence')
 export class LicencesController {
@@ -8,18 +9,21 @@ export class LicencesController {
 
   @Post("upload")
   @UsePipes(new ValidationPipe({transform: true}))
+  @UseGuards(JwtAuthGuard)
   async upload(@Body() licenceDto: LicenceDto) {
     return await this.licencesService.upload(licenceDto);
   }
 
   @Post("findall")
   @UsePipes(new ValidationPipe({transform: true}))
+  @UseGuards(JwtAuthGuard)
   async findAll() {
     return await this.licencesService.findAll();
   }
 
   @Delete("delete")
   @UsePipes(new ValidationPipe({transform: true}))
+  @UseGuards(JwtAuthGuard)
   async delete(@Body() licenceDto: LicenceDto) {
     return await this.licencesService.delete(licenceDto);
   }

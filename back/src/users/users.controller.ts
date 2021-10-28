@@ -1,6 +1,7 @@
-import { Controller, Post, Body, Delete, ValidationPipe, UsePipes } from '@nestjs/common';
+import { Controller, Post, Body, Delete, ValidationPipe, UsePipes, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto,TeacherDto } from "./dto/user.dto";
+import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
 
 @Controller("api/v1/auth")
 export class UsersController {
@@ -8,6 +9,7 @@ export class UsersController {
 
   @Post("addstudent")
   @UsePipes(new ValidationPipe({transform: true}))
+  @UseGuards(JwtAuthGuard)
   async addStudent(@Body() teacherDto: TeacherDto) {
     return await this.usersService.addStudent(teacherDto);
   }
@@ -26,6 +28,7 @@ export class UsersController {
 
   @Delete("delete")
   @UsePipes(new ValidationPipe({transform: true}))
+  @UseGuards(JwtAuthGuard)
   async delete(@Body() userDto: UserDto) {
     return await this.usersService.delete(userDto);
   }
