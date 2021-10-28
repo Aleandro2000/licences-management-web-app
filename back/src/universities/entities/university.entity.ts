@@ -1,3 +1,4 @@
+import { IsNotEmpty } from "class-validator";
 import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany,ManyToOne,JoinColumn } from "typeorm";
 import { Student } from "../../users/entities/student.entity";
 import { Licence } from "../../licences/entities/licence.entity";
@@ -9,9 +10,11 @@ export class University extends BaseEntity {
     id: number;
 
     @Column()
+    @IsNotEmpty()
     name: string;
 
     @Column()
+    @IsNotEmpty()
     studentId: number;
 
     @ManyToOne(() => Student, student => student.university)

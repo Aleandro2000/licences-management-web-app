@@ -1,3 +1,4 @@
+import { IsEmail,IsNotEmpty } from "class-validator";
 import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany,ManyToOne,JoinColumn } from "typeorm";
 import { University } from "../../universities/entities/university.entity";
 import { Licence } from "../../licences/entities/licence.entity";
@@ -10,12 +11,15 @@ export class Student extends BaseEntity {
     id: number;
 
     @Column()
+    @IsNotEmpty()
     username: string;
 
     @Column()
+    @IsEmail()
     email: string;
 
     @Column()
+    @IsNotEmpty()
     password: string;
 
     @Column()

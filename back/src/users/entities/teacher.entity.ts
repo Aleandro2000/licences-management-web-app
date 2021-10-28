@@ -1,5 +1,5 @@
+import { IsEmail,IsNotEmpty } from "class-validator";
 import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany } from "typeorm";
-import { University } from "../../universities/entities/university.entity";
 import { Student } from "./student.entity";
 
 @Entity()
@@ -8,12 +8,15 @@ export class Teacher extends BaseEntity {
     id: number;
 
     @Column()
+    @IsNotEmpty()
     username: string;
 
     @Column()
+    @IsEmail()
     email: string;
 
     @Column()
+    @IsNotEmpty()
     password: string;
 
     @Column({default: false})
