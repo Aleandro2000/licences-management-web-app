@@ -4,7 +4,7 @@ import { Department } from "./entities/department.entity";
 
 @Injectable()
 export class DepartmentService {
-  async upload(departmentDto: DepartmentDto): Promise<any> {
+  async add(departmentDto: DepartmentDto): Promise<any> {
     try {
       let department;
       department = await Department.findOne({teacherId: departmentDto.teacherId});

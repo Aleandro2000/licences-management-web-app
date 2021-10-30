@@ -10,8 +10,8 @@ export class DepartmentController {
   @Post("add")
   @UsePipes(new ValidationPipe({transform: true}))
   @UseGuards(JwtAuthGuard)
-  async upload(@Body() departmentDto: DepartmentDto) {
-    return await this.departmentService.upload(departmentDto);
+  async add(@Body() departmentDto: DepartmentDto) {
+    return await this.departmentService.add(departmentDto);
   }
 
   @Get("findall")
