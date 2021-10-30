@@ -22,7 +22,7 @@ export class Student extends BaseEntity {
     @IsNotEmpty()
     password: string;
 
-    @Column()
+    @Column({default: null})
     teacherId: number;
 
     @ManyToOne(() => Teacher, teacher => teacher.student)

@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Diploma } from 'src/diploma/entities/diploma.entity';
 import { Licence } from 'src/licences/entities/licence.entity';
 import { University } from 'src/universities/entities/university.entity';
+import { Request, Response } from "express";
 
 @Injectable()
 export class UsersService {
@@ -36,7 +37,7 @@ export class UsersService {
             user.email = userDto.email;
             user.password = await bcrypt.hash(userDto.password, await bcrypt.genSalt());
             await Student.save(user);
-            return {status: 200, result: await this.jwtService.sign({user})};
+            return {status: 200, message: "Successfully created!"};
           }
           else if(!userDto.username)
             return {status: 400, message: "Username may not be empty!"};
@@ -51,7 +52,7 @@ export class UsersService {
             user.email = userDto.email;
             user.password = await bcrypt.hash(userDto.password, await bcrypt.genSalt());
             await Teacher.save(user);
-            return {status: 200, result: await this.jwtService.sign({user})};
+            return {status: 200, message: "Successfully created!"};
           }
           else if(!userDto.username)
             return {status: 400, message: "Username may not be empty!"};
@@ -66,7 +67,7 @@ export class UsersService {
     }
   }
 
-  async login(userDto: UserDto): Promise<any> {
+  async login(userDto: UserDto, response: Response): Promise<any> {
     try {
       let user;
       switch (userDto.type)
@@ -74,13 +75,21 @@ export class UsersService {
         case "student":
           user = await Student.findOne({email: userDto.email});
           if (user && bcrypt.compare(userDto.password, user.password))
-            return {status: 200, result: await this.jwtService.sign(user)};
+          {
+            user.password = "";
+            await response.cookie("jwt",await this.jwtService.sign({user}));
+            return {status: 200, result: user};
+          }
           else
             return {status: 400, message: "User not found!"};
         case "teacher":
           user = await Teacher.findOne({email: userDto.email});
           if (user && bcrypt.compare(userDto.password, user.password))
-            return {status: 200, result: await this.jwtService.sign(user)};
+          {
+            user.password = "";
+            await response.cookie("jwt",await this.jwtService.sign({user}));
+            return {status: 200, result: user};
+          }
           else
             return {status: 400, message: "User not found!"};
         default:
@@ -92,18 +101,19 @@ export class UsersService {
     }
   }
 
-  async delete(userDto: UserDto): Promise<any> {
+  async delete(request: Request): Promise<any> {
     try {
-      switch (userDto.type)
+      const data = await this.jwtService.verify(request.cookies["jwt"]);
+      switch (data.type)
       {
         case "student":
-          await Student.delete({id: userDto.id});
-          await Diploma.delete({studentId: userDto.id});
-          await Licence.delete({studentId: userDto.id});
-          await University.delete({studentId: userDto.id});
+          await Student.delete({id: data.id});
+          await Diploma.delete({studentId: data.id});
+          await Licence.delete({studentId: data.id});
+          await University.delete({studentId: data.id});
           return {status: 200, message: "Successfully deleted!"};
         case "teacher":
-          await Teacher.delete({id: userDto.id});
+          await Teacher.delete({id: data.id});
           return {status: 200, message: "Successfully deleted!"};
         default:
           return {status: 400, message: "Deleting failed!"};
