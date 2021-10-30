@@ -7,7 +7,6 @@ import { LicencesModule } from './licences/licences.module';
 import { DiplomaModule } from './diploma/diploma.module';
 import { UniversitiesModule } from './universities/universities.module';
 import { DepartmentModule } from './department/department.module';
-import { configuration } from "./jwt/jwt.config";
 
 @Module({
   imports: [
