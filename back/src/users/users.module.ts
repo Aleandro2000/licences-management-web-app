@@ -5,6 +5,7 @@ import { UsersController } from './users.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from "../jwt/jwt.strategy";
 import { JwtAuthGuard } from "src/jwt/jwt.auth.guard";
+import { configuration } from "../jwt/jwt.config";
 
 @Module({
   imports: [
@@ -12,8 +13,8 @@ import { JwtAuthGuard } from "src/jwt/jwt.auth.guard";
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        secret: "jwtsecrettoken",
-        signOptions: {expiresIn: "1h"}
+        secret: configuration.secret,
+        signOptions: {expiresIn: configuration.expiresIn}
       })
     })
   ],

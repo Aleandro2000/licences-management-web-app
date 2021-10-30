@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards, Get } from '@nestjs/common';
 import { UniversitiesService } from './universities.service';
 import { UniversityDto } from './dto/university.dto';
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
@@ -7,7 +7,7 @@ import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
 export class UniversitiesController {
   constructor(private readonly universitiesService: UniversitiesService) {}
 
-  @Post("findall")
+  @Get("findall")
   @UsePipes(new ValidationPipe({transform: true}))
   @UseGuards(JwtAuthGuard)
   async findAll() {

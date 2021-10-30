@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards, Get } from '@nestjs/common';
 import { LicencesService } from './licences.service';
 import { LicenceDto } from './dto/licence.dto';
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
@@ -14,7 +14,7 @@ export class LicencesController {
     return await this.licencesService.upload(licenceDto);
   }
 
-  @Post("findall")
+  @Get("findall")
   @UsePipes(new ValidationPipe({transform: true}))
   @UseGuards(JwtAuthGuard)
   async findAll() {

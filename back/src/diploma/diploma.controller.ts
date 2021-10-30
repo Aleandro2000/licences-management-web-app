@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards, Get } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
 import { DiplomaService } from './diploma.service';
 import { DiplomaDto } from './dto/diploma.dto';
@@ -14,7 +14,7 @@ export class DiplomaController {
     return await this.diplomaService.upload(diplomaDto);
   }
 
-  @Post("findall")
+  @Get("findall")
   @UsePipes(new ValidationPipe({transform: true}))
   @UseGuards(JwtAuthGuard)
   async findAll() {

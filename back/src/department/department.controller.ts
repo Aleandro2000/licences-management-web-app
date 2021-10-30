@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Body, Delete, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
 import { DepartmentService } from './department.service';
 import { DepartmentDto } from './dto/department.dto';
@@ -7,14 +7,14 @@ import { DepartmentDto } from './dto/department.dto';
 export class DepartmentController {
   constructor(private readonly departmentService: DepartmentService) {}
 
-  @Post("upload")
+  @Post("add")
   @UsePipes(new ValidationPipe({transform: true}))
   @UseGuards(JwtAuthGuard)
   async upload(@Body() departmentDto: DepartmentDto) {
     return await this.departmentService.upload(departmentDto);
   }
 
-  @Post("findall")
+  @Get("findall")
   @UsePipes(new ValidationPipe({transform: true}))
   @UseGuards(JwtAuthGuard)
   async findAll() {

@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { createDatabase } from "typeorm-extension";
-import { connectionOptions } from './config/database.config';
+import { connectionOptions } from './database/database.config';
 
 async function bootstrap() {
   await createDatabase({ifNotExist: true},connectionOptions);

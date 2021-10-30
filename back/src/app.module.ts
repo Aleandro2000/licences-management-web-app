@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
-import { connectionOptions } from './config/database.config';
+import { connectionOptions } from './database/database.config';
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { LicencesModule } from './licences/licences.module';
 import { DiplomaModule } from './diploma/diploma.module';
 import { UniversitiesModule } from './universities/universities.module';
 import { DepartmentModule } from './department/department.module';
+import { configuration } from "./jwt/jwt.config";
 
 @Module({
   imports: [
@@ -14,6 +15,9 @@ import { DepartmentModule } from './department/department.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => (connectionOptions),
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     UsersModule,
     LicencesModule,

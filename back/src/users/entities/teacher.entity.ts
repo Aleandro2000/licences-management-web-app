@@ -1,4 +1,5 @@
 import { IsEmail,IsNotEmpty } from "class-validator";
+import { Department } from "src/department/entities/department.entity";
 import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany } from "typeorm";
 import { Student } from "./student.entity";
 
@@ -24,4 +25,7 @@ export class Teacher extends BaseEntity {
 
     @OneToMany(() => Student, student => student.teacher)
     student: Student;
+
+    @OneToMany(() => Department, department => department.teacher)
+    department: Department;
 }
