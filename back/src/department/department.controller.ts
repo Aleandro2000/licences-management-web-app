@@ -1,28 +1,30 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
 import { DepartmentService } from './department.service';
 import { DepartmentDto } from './dto/department.dto';
 
-@Controller('department')
+@Controller('api/v1/department')
 export class DepartmentController {
   constructor(private readonly departmentService: DepartmentService) {}
 
-  @Post()
-  create(@Body() departmentDto: DepartmentDto) {
-    return this.departmentService.create(departmentDto);
+  @Post("upload")
+  @UsePipes(new ValidationPipe({transform: true}))
+  @UseGuards(JwtAuthGuard)
+  async upload(@Body() departmentDto: DepartmentDto) {
+    return await this.departmentService.upload(departmentDto);
   }
 
-  @Get()
-  findAll() {
-    return this.departmentService.findAll();
+  @Post("findall")
+  @UsePipes(new ValidationPipe({transform: true}))
+  @UseGuards(JwtAuthGuard)
+  async findAll() {
+    return await this.departmentService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.departmentService.findOne(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.departmentService.remove(+id);
+  @Delete("delete")
+  @UsePipes(new ValidationPipe({transform: true}))
+  @UseGuards(JwtAuthGuard)
+  async delete(@Body() departmentDto: DepartmentDto) {
+    return await this.departmentService.delete(departmentDto);
   }
 }

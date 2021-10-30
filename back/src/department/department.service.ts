@@ -1,25 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { DepartmentDto } from './dto/department.dto';
+import { Department } from "./entities/department.entity";
 
 @Injectable()
 export class DepartmentService {
-  create(departmentDto: DepartmentDto) {
-    return 'This action adds a new department';
+  async upload(departmentDto: DepartmentDto): Promise<any> {
+    
   }
 
-  findAll() {
-    return `This action returns all department`;
+  async findAll(): Promise<any> {
+    
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} department`;
-  }
-
-  update(id: number) {
-    return `This action updates a #${id} department`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} department`;
+  async delete(departmentDto: DepartmentDto): Promise<any> {
+  
   }
 }
