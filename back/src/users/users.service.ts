@@ -4,6 +4,9 @@ import { Student } from "./entities/student.entity";
 import { Teacher } from "./entities/teacher.entity";
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { Diploma } from 'src/diploma/entities/diploma.entity';
+import { Licence } from 'src/licences/entities/licence.entity';
+import { University } from 'src/universities/entities/university.entity';
 
 @Injectable()
 export class UsersService {
@@ -95,6 +98,9 @@ export class UsersService {
       {
         case "student":
           await Student.delete({id: userDto.id});
+          await Diploma.delete({studentId: userDto.id});
+          await Licence.delete({studentId: userDto.id});
+          await University.delete({studentId: userDto.id});
           return {status: 200, message: "Successfully deleted!"};
         case "teacher":
           await Teacher.delete({id: userDto.id});
