@@ -15,8 +15,8 @@ export class UsersService {
 
   async addStudent(teacherDto: TeacherDto): Promise<any> {
     try {
-      await Student.update({id: teacherDto.studentId},{teacherId: teacherDto.teacherId});
-      return {status: 200, message: "Teacher assigned!"};
+      const student = await Student.update({id: teacherDto.studentId},{teacherId: teacherDto.teacherId});
+      return {status: 200, result: student, message: "Teacher assigned!"};
     }
     catch (err) {
       return {status: 400, message: err};
@@ -77,7 +77,7 @@ export class UsersService {
           if (user && bcrypt.compare(userDto.password, user.password))
           {
             user.password = "";
-            await response.cookie("jwt",await this.jwtService.sign({user}));
+            await response.cookie("jwt",await this.jwtService.sign({user, type: "student"}));
             return {status: 200, result: user};
           }
           else
@@ -87,7 +87,7 @@ export class UsersService {
           if (user && bcrypt.compare(userDto.password, user.password))
           {
             user.password = "";
-            await response.cookie("jwt",await this.jwtService.sign({user}));
+            await response.cookie("jwt",await this.jwtService.sign({user, type: "teacher"}));
             return {status: 200, result: user};
           }
           else
@@ -104,16 +104,17 @@ export class UsersService {
   async delete(request: Request): Promise<any> {
     try {
       const data = await this.jwtService.verify(request.cookies["jwt"]);
+      console.log(data)
       switch (data.type)
       {
         case "student":
-          await Student.delete({id: data.id});
-          await Diploma.delete({studentId: data.id});
-          await Licence.delete({studentId: data.id});
-          await University.delete({studentId: data.id});
+          await Student.delete({id: data.user.id});
+          await Diploma.delete({studentId: data.user.id});
+          await Licence.delete({studentId: data.user.id});
+          await University.delete({studentId: data.user.id});
           return {status: 200, message: "Successfully deleted!"};
         case "teacher":
-          await Teacher.delete({id: data.id});
+          await Teacher.delete({id: data.user.id});
           return {status: 200, message: "Successfully deleted!"};
         default:
           return {status: 400, message: "Deleting failed!"};
