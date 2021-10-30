@@ -10,10 +10,6 @@ export class Department extends BaseEntity {
     @Column()
     @IsNotEmpty()
     name: string;
-
-    @Column()
-    @IsNotEmpty()
-    content: string;
     
     @Column()
     @IsNotEmpty()
