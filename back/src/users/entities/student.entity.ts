@@ -32,9 +32,9 @@ export class Student extends BaseEntity {
     @OneToMany(() => University, university => university.student)
     university: University;
 
-    @OneToMany(() => Licence, licence => licence.university)
+    @OneToMany(() => Licence, licence => licence.student)
     licence: Licence;
 
-    @OneToMany(() => Diploma, diploma => diploma.university)
+    @OneToMany(() => Diploma, diploma => diploma.student)
     diploma: Diploma;
 }

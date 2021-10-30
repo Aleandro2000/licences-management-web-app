@@ -10,13 +10,13 @@ import { DepartmentModule } from './department/department.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => (connectionOptions),
-    }),
-    ConfigModule.forRoot({
-      isGlobal: true,
     }),
     UsersModule,
     LicencesModule,
