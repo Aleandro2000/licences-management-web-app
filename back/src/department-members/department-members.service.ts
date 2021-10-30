@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDepartmentMemberDto } from './dto/department-member.dto';
-import { UpdateDepartmentMemberDto } from './dto/update-department-member.dto';
+import { DepartmentMemberDto } from './dto/department-member.dto';
 
 @Injectable()
 export class DepartmentMembersService {
-  create(createDepartmentMemberDto: CreateDepartmentMemberDto) {
+  create(departmentMemberDto: DepartmentMemberDto) {
     return 'This action adds a new departmentMember';
   }
 
@@ -16,7 +15,7 @@ export class DepartmentMembersService {
     return `This action returns a #${id} departmentMember`;
   }
 
-  update(id: number, updateDepartmentMemberDto: UpdateDepartmentMemberDto) {
+  update(id: number) {
     return `This action updates a #${id} departmentMember`;
   }
 
