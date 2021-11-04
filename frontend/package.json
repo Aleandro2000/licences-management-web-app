@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "private": true,
+  "proxy": "https://localhost:8081/api/v1", 
   "scripts": {
     "dev": "next dev",
     "build": "next build",
