@@ -6,7 +6,7 @@ export const connectionOptions: ConnectionOptions = {
     port: 3306,
     username: "root",
     password: "",
-    database: "LICENCES_DEGREE",
+    database: "licences_degree",
     entities: [
         __dirname + "/../**/*.entity{.ts,.js}",
     ],

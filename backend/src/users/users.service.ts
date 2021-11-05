@@ -76,7 +76,7 @@ export class UsersService {
           user = await Student.findOne({email: userDto.email});
           if (user && bcrypt.compare(userDto.password, user.password))
           {
-            user.password = "";
+            user.id = user.password = "";
             await response.cookie("jwt",await this.jwtService.sign({user, type: "student"}));
             return {status: 200, result: user};
           }
@@ -86,7 +86,7 @@ export class UsersService {
           user = await Teacher.findOne({email: userDto.email});
           if (user && bcrypt.compare(userDto.password, user.password))
           {
-            user.password = "";
+            user.id = user.password = "";
             await response.cookie("jwt",await this.jwtService.sign({user, type: "teacher"}));
             return {status: 200, result: user};
           }
