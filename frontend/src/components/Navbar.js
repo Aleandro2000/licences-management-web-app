@@ -12,31 +12,31 @@ export default function Navbar()
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto text-center">
-                        <Link href="/" passHref={true}>
-                            <li className="nav-item nav-link" style={{cursor: "pointer"}}>
+                        <li className="nav-item" style={{cursor: "pointer"}}>
+                            <Link className="nav-link" to="/home">
                                 Home
-                            </li>
-                        </Link>
+                            </Link>
+                        </li>
                         {
                             !isLogin() ? (
                                 <>
-                                    <Link href="/login" passHref={true}>
-                                        <li className="nav-item nav-link" style={{cursor: "pointer"}}>
+                                    <li className="nav-item" style={{cursor: "pointer"}}>
+                                        <Link className="nav-link" to="/login">
                                             Login
-                                        </li>
-                                    </Link>
-                                    <Link href="/login" passHref={true}>
-                                        <li className="nav-item nav-link" style={{cursor: "pointer"}}>
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item" style={{cursor: "pointer"}}>
+                                        <Link className="nav-link" to="/register">
                                             Register
-                                        </li>
-                                    </Link>
+                                        </Link>
+                                    </li>
                                 </>
                             ) : (
-                              <Link href="/dashboard" passHref={true}>
-                                    <li className="nav-item nav-link" style={{cursor: "pointer"}}>
+                                <li className="nav-item" style={{cursor: "pointer"}}>
+                                    <Link className="nav-link" to="/dashboard">
                                         Dashboard
-                                    </li>
-                              </Link>
+                                    </Link>
+                                </li>
                             )
                         }
                     </ul>

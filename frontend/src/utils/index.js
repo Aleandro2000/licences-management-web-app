@@ -1,15 +1,15 @@
-export default function login(user)
+export function login(user)
 {
     sessionStorage.setItem("session",user);
 }
 
-export default function logout()
+export function logout()
 {
     sessionStorage.removeItem("session");
     document.cookie="jwt=;expires="+new Date(0).toUTCString();
 }
 
-export default function isLogin()
+export function isLogin()
 {
     return localStorage.getItem("session")&&document.cookie.length;
 }
