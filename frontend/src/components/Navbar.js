@@ -4,7 +4,7 @@ import { isLogin } from "../utils";
 export default function Navbar()
 {
     return(
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
                 <span className="navbar-brand"><i className="fa fa-graduation-cap"/></span>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@ export default function Navbar()
                     <ul className="navbar-nav ms-auto text-center">
                         <li className="nav-item" style={{cursor: "pointer"}}>
                             <Link className="nav-link" to="/home">
-                                Home
+                                <i className="fa fa-home"/>|Home
                             </Link>
                         </li>
                         {
@@ -22,19 +22,19 @@ export default function Navbar()
                                 <>
                                     <li className="nav-item" style={{cursor: "pointer"}}>
                                         <Link className="nav-link" to="/login">
-                                            Login
+                                            <i className="fa fa-sign-in"/>|Login
                                         </Link>
                                     </li>
                                     <li className="nav-item" style={{cursor: "pointer"}}>
                                         <Link className="nav-link" to="/register">
-                                            Register
+                                            <i className="fa fa-sign-out"/>|Register
                                         </Link>
                                     </li>
                                 </>
                             ) : (
                                 <li className="nav-item" style={{cursor: "pointer"}}>
                                     <Link className="nav-link" to="/dashboard">
-                                        Dashboard
+                                        <i className="fa fa-dashboard"/>|Dashboard
                                     </Link>
                                 </li>
                             )
