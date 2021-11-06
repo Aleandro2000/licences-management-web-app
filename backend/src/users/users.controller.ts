@@ -2,7 +2,7 @@ import { Controller, Post, Body, Delete, ValidationPipe, UsePipes, UseGuards, Re
 import { UsersService } from './users.service';
 import { UserDto,TeacherDto } from "./dto/user.dto";
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
-import { Request, Response } from 'express';
+import { Request, response, Response } from 'express';
 
 @Controller("api/v1/auth")
 export class UsersController {
@@ -30,7 +30,7 @@ export class UsersController {
   @Delete("delete")
   @UsePipes(new ValidationPipe({transform: true}))
   @UseGuards(JwtAuthGuard)
-  async delete(@Req() request: Request) {
-    return await this.usersService.delete(request);
+  async delete(@Req() request: Request, @Res() response: Response) {
+    return await this.usersService.delete(request,response);
   }
 }

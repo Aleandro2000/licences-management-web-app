@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Diploma } from 'src/diploma/entities/diploma.entity';
 import { Licence } from 'src/licences/entities/licence.entity';
 import { University } from 'src/universities/entities/university.entity';
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 
 @Injectable()
 export class UsersService {
@@ -101,7 +101,7 @@ export class UsersService {
     }
   }
 
-  async delete(request: Request): Promise<any> {
+  async delete(request: Request, response: Response): Promise<any> {
     try {
       const data = await this.jwtService.verify(request.cookies["jwt"]);
       console.log(data)
@@ -119,6 +119,7 @@ export class UsersService {
         default:
           return {status: 400, message: "Deleting failed!"};
       }
+      response.clearCookie("jwt");
     }
     catch (err) {
       return {status: 400, message: err};
