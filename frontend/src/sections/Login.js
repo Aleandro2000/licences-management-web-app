@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 export default function Login()
@@ -35,26 +36,26 @@ export default function Login()
     }
 
     return(
-        <>
+        <div className="fadeIn">
             <Navbar/>
             <br/>
-            <form className="container auth-form" onSubmit={login}>
+            <form className="container fitting" onSubmit={login}>
                 <div className="form-group row">
-                    <label for="email" className="col-sm-2 col-form-label">EMAIL</label>
+                    <label htmlFor="email" className="col-sm-2 col-form-label">EMAIL</label>
                     <div className="col-sm-10">
                         <input type="email" className="form-control" id="email" name="email" required/>
                     </div>
                 </div>
                 <br/>
                 <div className="form-group row">
-                    <label for="password" className="col-sm-2 col-form-label">PASSWORD</label>
+                    <label htmlFor="password" className="col-sm-2 col-form-label">PASSWORD</label>
                     <div className="col-sm-10">
                         <input type="password" className="form-control" id="password" name="password" required/>
                     </div>
                 </div>
                 <br/>
                 <button type="submit" className="btn btn-dark">
-                    <i className="fa fa-sign-in"/>|LOGIN
+                    <i className="fa fa-sign-in"/> LOGIN
                 </button>
                 <br/><br/>
                 <b>
@@ -62,11 +63,12 @@ export default function Login()
                 </b>
                 <br/><br/>
                 <center>
-                    <div class="spinner-border loading" role="status" id="loading">
-                      <span class="sr-only"/>
+                    <div className="spinner-border loading" role="status" id="loading">
+                      <span className="sr-only"/>
                     </div>
                 </center>
             </form>
-        </>
+            <Footer/>
+        </div>
     );
 }

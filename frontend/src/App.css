@@ -1,8 +1,58 @@
-.auth-form{
+.fitting {
     margin-top: 50px;
     text-align: center;
 }
 
-.loading{
+.loading {
     display: none;
+}
+
+.custom-card {
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.footer {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.social-media {
+    margin: 10px;
+}
+
+.fadeIn {
+    animation: fadeIn 0.5s;
+    -webkit-animation: fadeIn 0.5s;
+    -moz-animation: fadeIn 0.5s;
+    -o-animation: fadeIn 0.5s;
+    -ms-animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+  
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+  
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+  
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+  
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
