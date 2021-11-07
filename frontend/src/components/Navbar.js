@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
-import { isLogin } from "../utils";
+import { Link,useHistory } from "react-router-dom";
+import { isLogin,logout } from "../utils";
 
 export default function Navbar()
 {
+    const history=useHistory();
+
+    const handleLogout = () => {
+        logout();
+        history.push("/login");
+    }
+
     return(
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -27,16 +34,23 @@ export default function Navbar()
                                     </li>
                                     <li className="nav-item" style={{cursor: "pointer"}}>
                                         <Link className="nav-link" to="/register">
-                                            <i className="fa fa-sign-out"/>|Register
+                                            <i className="fa fa-plus"/>|Register
                                         </Link>
                                     </li>
                                 </>
                             ) : (
-                                <li className="nav-item" style={{cursor: "pointer"}}>
-                                    <Link className="nav-link" to="/dashboard">
-                                        <i className="fa fa-dashboard"/>|Dashboard
-                                    </Link>
-                                </li>
+                                <>
+                                    <li className="nav-item" style={{cursor: "pointer"}}>
+                                        <Link className="nav-link" to="/dashboard">
+                                            <i className="fa fa-dashboard"/>|Dashboard
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item" style={{cursor: "pointer"}}>
+                                        <button className="btn btn-dark" onClick={handleLogout}>
+                                            <i className="fa fa-sign-out"/>|Logout
+                                        </button>
+                                    </li>
+                                </>
                             )
                         }
                     </ul>

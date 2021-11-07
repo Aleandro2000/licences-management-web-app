@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { login } from "../utils";
 
 export default function Login()
 {
     const [message,setMessage]=useState();
     const history=useHistory();
 
-    const login = async (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
         document.getElementById("loading").style.display="block";
         await fetch("/auth/login",{
@@ -18,7 +19,8 @@ export default function Login()
             },
             body: JSON.stringify({
                 email: event.target.email.value,
-                password: event.target.password.value
+                password: event.target.password.value,
+                type: event.target.type.value
             })
         })
             .then(response => response.json())
@@ -39,7 +41,13 @@ export default function Login()
         <div className="fadeIn">
             <Navbar/>
             <br/>
-            <form className="container fitting" onSubmit={login}>
+            <form className="container fitting" onSubmit={handleLogin}>
+                <h1>
+                    <b>
+                        LOGIN
+                    </b>
+                </h1>
+                <br/>
                 <div className="form-group row">
                     <label htmlFor="email" className="col-sm-2 col-form-label">EMAIL</label>
                     <div className="col-sm-10">
@@ -53,6 +61,12 @@ export default function Login()
                         <input type="password" className="form-control" id="password" name="password" required/>
                     </div>
                 </div>
+                <br/>
+                <select className="form-select" id="type" name="type">
+                    <option defaultValue="">SELECT USER TYPE</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                </select>
                 <br/>
                 <button type="submit" className="btn btn-dark">
                     <i className="fa fa-sign-in"/> LOGIN
