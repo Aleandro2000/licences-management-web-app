@@ -1,6 +1,6 @@
-import { IsEmail,IsNotEmpty } from "class-validator";
+import { IsEmail, IsNotEmpty } from "class-validator";
 import { Department } from "src/department/entities/department.entity";
-import { Entity,Column,PrimaryGeneratedColumn,BaseEntity,OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany } from "typeorm";
 import { Student } from "./student.entity";
 
 @Entity()
@@ -20,7 +20,7 @@ export class Teacher extends BaseEntity {
     @IsNotEmpty()
     password: string;
 
-    @Column({default: false})
+    @Column({ default: false })
     isAdmin: boolean;
 
     @OneToMany(() => Student, student => student.teacher)

@@ -1,11 +1,10 @@
 import Navbar from "../components/Navbar";
 import { getSession } from "../utils";
 
-export default function Dashboard()
-{
-    return(
+export default function Dashboard() {
+    return (
         <div className="fadeIn">
-            <Navbar/>
+            <Navbar />
             <div className="container fitting">
                 <h1>
                     <b>

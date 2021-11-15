@@ -6,4 +6,4 @@ import { DiplomaController } from './diploma.controller';
   controllers: [DiplomaController],
   providers: [DiplomaService]
 })
-export class DiplomaModule {}
+export class DiplomaModule { }

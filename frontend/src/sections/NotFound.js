@@ -1,11 +1,10 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
-export default function NotFound()
-{
-    return(
+export default function NotFound() {
+    return (
         <div className="fadeIn">
-            <Navbar/>
+            <Navbar />
             <div className="container fitting">
                 <div className="row">
                     <div className="col-md-12">
@@ -23,7 +22,7 @@ export default function NotFound()
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }

@@ -6,4 +6,4 @@ import { UniversitiesController } from './universities.controller';
   controllers: [UniversitiesController],
   providers: [UniversitiesService]
 })
-export class UniversitiesModule {}
+export class UniversitiesModule { }

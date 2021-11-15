@@ -14,11 +14,11 @@ import { configuration } from "../jwt/jwt.config";
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         secret: configuration.secret,
-        signOptions: {expiresIn: configuration.expiresIn}
+        signOptions: { expiresIn: configuration.expiresIn }
       })
     })
   ],
   controllers: [UsersController],
-  providers: [UsersService,JwtStrategy,JwtAuthGuard]
+  providers: [UsersService, JwtStrategy, JwtAuthGuard]
 })
-export class UsersModule {}
+export class UsersModule { }
