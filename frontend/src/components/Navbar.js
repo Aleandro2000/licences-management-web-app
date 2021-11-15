@@ -46,7 +46,7 @@ export default function Navbar()
                                         </Link>
                                     </li>
                                     <li className="nav-item" style={{cursor: "pointer"}}>
-                                        <button className="btn btn-dark" onClick={handleLogout}>
+                                        <button className="btn btn-light" onClick={handleLogout}>
                                             <i className="fa fa-sign-out"/>|Logout
                                         </button>
                                     </li>

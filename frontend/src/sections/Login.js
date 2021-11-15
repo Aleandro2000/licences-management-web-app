@@ -26,13 +26,15 @@ export default function Login() {
             .then(data => {
                 if (data.status === 200) {
                     login(data.result);
+                    document.getElementById("loading").style.display = "none";
                     history.push("/dashboard");
                 }
-                else
+                else {
+                    document.getElementById("loading").style.display = "none";
                     setMessage(data.message);
+                }
             })
             .catch(err => setMessage(err.message));
-        document.getElementById("loading").style.display = "none";
     }
 
     return (
