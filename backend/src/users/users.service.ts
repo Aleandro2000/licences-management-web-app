@@ -7,27 +7,11 @@ import { JwtService } from '@nestjs/jwt';
 import { Diploma } from 'src/diploma/entities/diploma.entity';
 import { Licence } from 'src/licences/entities/licence.entity';
 import { University } from 'src/universities/entities/university.entity';
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 
 @Injectable()
 export class UsersService {
   constructor(private readonly jwtService: JwtService) { }
-
-  async getUser(id): Promise<any> {
-    try {
-      const student = await Student.findOne({ id: id });
-      const teacher = await Teacher.findOne({ id: id });
-      if (student)
-        return student;
-      else if (teacher)
-        return teacher;
-      else
-        return null;
-    }
-    catch (err) {
-      return { status: 400, message: err };
-    }
-  }
 
   async addStudent(teacherDto: TeacherDto): Promise<any> {
     try {
