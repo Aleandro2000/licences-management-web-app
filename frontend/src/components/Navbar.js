@@ -18,9 +18,11 @@ export default function Navbar()
             }
         })
             .then(response => response.json())
-            .then(data =>alert(data.message))
+            .then(data => {
+                alert(data.message);
+                handleLogout();
+            })
             .catch(err => alert(err.message));
-        handleLogout();
     }
 
     return(
