@@ -13,6 +13,22 @@ import { Request, response, Response } from "express";
 export class UsersService {
   constructor(private readonly jwtService: JwtService) { }
 
+  async getUser(id): Promise<any> {
+    try {
+      const student = await Student.findOne({ id: id });
+      const teacher = await Teacher.findOne({ id: id });
+      if (student)
+        return student;
+      else if (teacher)
+        return teacher;
+      else
+        return null;
+    }
+    catch (err) {
+      return { status: 400, message: err };
+    }
+  }
+
   async addStudent(teacherDto: TeacherDto): Promise<any> {
     try {
       const student = await Student.update({ id: teacherDto.studentId }, { teacherId: teacherDto.teacherId });
@@ -105,14 +121,16 @@ export class UsersService {
           await Diploma.delete({ studentId: data.user.id });
           await Licence.delete({ studentId: data.user.id });
           await University.delete({ studentId: data.user.id });
+          response.clearCookie("jwt");
           return { status: 200, message: "Successfully deleted!" };
         case "teacher":
           await Teacher.delete({ id: data.user.id });
+          response.clearCookie("jwt");
           return { status: 200, message: "Successfully deleted!" };
         default:
+          response.clearCookie("jwt");
           return { status: 400, message: "Deleting failed!" };
       }
-      response.clearCookie("jwt");
     }
     catch (err) {
       return { status: 400, message: err };

@@ -19,6 +19,7 @@ import { configuration } from "../jwt/jwt.config";
     })
   ],
   controllers: [UsersController],
-  providers: [UsersService, JwtStrategy, JwtAuthGuard]
+  providers: [UsersService, JwtStrategy, JwtAuthGuard],
+  exports: [UsersService]
 })
 export class UsersModule { }
