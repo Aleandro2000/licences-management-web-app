@@ -1,6 +1,7 @@
 {
   "name": "test",
   "version": "0.1.0",
+  "proxy": "http://localhost:8081/api/v1",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.0",

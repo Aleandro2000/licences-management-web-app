@@ -1,5 +1,5 @@
 import { Link,useHistory } from "react-router-dom";
-import { isLogin,logout } from "../utils";
+import { getCookie, isLogin,logout } from "../utils";
 
 export default function Navbar()
 {
@@ -8,6 +8,19 @@ export default function Navbar()
     const handleLogout = () => {
         logout();
         history.push("/login");
+    }
+
+    const deleteAccount = async () => {
+        await fetch("/auth/delete", {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + getCookie("jwt")
+            }
+        })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(err => alert(err.message));
+        history.push("/register");
     }
 
     return(
@@ -46,7 +59,12 @@ export default function Navbar()
                                         </Link>
                                     </li>
                                     <li className="nav-item" style={{cursor: "pointer"}}>
-                                        <button className="btn btn-light" onClick={handleLogout}>
+                                        <button className="btn btn-light" style={{borderRadius: 0}} onClick={deleteAccount}>
+                                            <i className="fa fa-minus"/>|Delete
+                                        </button>
+                                    </li>
+                                    <li className="nav-item" style={{cursor: "pointer"}}>
+                                        <button className="btn btn-light" style={{borderRadius: 0}} onClick={handleLogout}>
                                             <i className="fa fa-sign-out"/>|Logout
                                         </button>
                                     </li>

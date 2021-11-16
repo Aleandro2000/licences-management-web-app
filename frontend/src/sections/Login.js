@@ -11,21 +11,22 @@ export default function Login() {
     const handleLogin = async (event) => {
         event.preventDefault();
         document.getElementById("loading").style.display = "block";
+        const { email, password, type } = event.target;
         await fetch("/auth/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: event.target.email.value,
-                password: event.target.password.value,
-                type: event.target.type.value
+                email: email.value,
+                password: password.value,
+                type: type.value
             })
         })
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
-                    login(data.result);
+                    login(data.result, type.value);
                     document.getElementById("loading").style.display = "none";
                     history.push("/dashboard");
                 }

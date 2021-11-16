@@ -8,11 +8,12 @@ export default function Dashboard() {
             <div className="container fitting">
                 <h1>
                     <b>
-                        {getSession().username}
+                        {getSession().user.username}
                     </b>
                 </h1>
+                <br/>
                 <b>
-                    -DASHBOARD-
+                    {getSession().type.toUpperCase()} - DASHBOARD
                 </b>
             </div>
         </div>
