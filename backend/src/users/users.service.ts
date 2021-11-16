@@ -87,7 +87,7 @@ export class UsersService {
         case "student":
           user = await Student.findOne({ email: userDto.email });
           if (user && bcrypt.compare(userDto.password, user.password)) {
-            user.id = user.password = "";
+            user.password = "";
             await response.cookie("jwt", await this.jwtService.sign({ user, type: "student" }));
             return { status: 200, result: user };
           }
@@ -96,7 +96,7 @@ export class UsersService {
         case "teacher":
           user = await Teacher.findOne({ email: userDto.email });
           if (user && bcrypt.compare(userDto.password, user.password)) {
-            user.id = user.password = "";
+            user.password = "";
             await response.cookie("jwt", await this.jwtService.sign({ user, type: "teacher" }));
             return { status: 200, result: user };
           }
@@ -122,14 +122,14 @@ export class UsersService {
           await Licence.delete({ studentId: data.user.id });
           await University.delete({ studentId: data.user.id });
           response.clearCookie("jwt");
-          return { status: 200, message: "Successfully deleted!" };
+          return response.status(200);
         case "teacher":
           await Teacher.delete({ id: data.user.id });
           response.clearCookie("jwt");
-          return { status: 200, message: "Successfully deleted!" };
+          return response.status(200);
         default:
           response.clearCookie("jwt");
-          return { status: 400, message: "Deleting failed!" };
+          return response.status(400);
       }
     }
     catch (err) {
