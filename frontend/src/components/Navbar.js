@@ -14,15 +14,14 @@ export default function Navbar()
         await fetch("/auth/delete", {
             method: "DELETE",
             headers: {
-                "Authorization": "Bearer " + getCookie("jwt")
+                "Authorization": "Bearer " + getCookie("jwt"),
+                "Content-type": "application/json; charset=UTF-8"
             }
         })
             .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                handleLogout();
-            })
+            .then(data => alert(data.message))
             .catch(err => alert(err.message));
+        handleLogout();
     }
 
     return(

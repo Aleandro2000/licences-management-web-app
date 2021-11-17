@@ -15,7 +15,7 @@ export default function Login() {
         await fetch("/auth/login", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-type": "application/json; charset=UTF-8"
             },
             body: JSON.stringify({
                 email: email.value,

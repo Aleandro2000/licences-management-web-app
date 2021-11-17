@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { getSession } from "../utils";
 
@@ -16,6 +17,7 @@ export default function Dashboard() {
                     {getSession().type.toUpperCase()} - DASHBOARD
                 </b>
             </div>
+            <Footer/>
         </div>
     );
 }

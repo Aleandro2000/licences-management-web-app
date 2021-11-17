@@ -11,7 +11,7 @@ export default function Register() {
         await fetch("/auth/register", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-type": "application/json; charset=UTF-8"
             },
             body: JSON.stringify({
                 username: event.target.username.value,

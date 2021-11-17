@@ -98,7 +98,6 @@ export class UsersService {
   async delete(request: Request, response: Response): Promise<any> {
     try {
       const data = await this.jwtService.verify(request.cookies["jwt"]);
-      console.log(data)
       switch (data.type) {
         case "student":
           await Student.delete({ id: data.user.id });
@@ -106,14 +105,14 @@ export class UsersService {
           await Licence.delete({ studentId: data.user.id });
           await University.delete({ studentId: data.user.id });
           response.clearCookie("jwt");
-          return response.status(200);
+          return {status: 200, message: "Successfully deleted!"};
         case "teacher":
           await Teacher.delete({ id: data.user.id });
           response.clearCookie("jwt");
-          return response.status(200);
+          return {status: 200, message: "Successfully deleted!"};
         default:
           response.clearCookie("jwt");
-          return response.status(400);
+          return {status: 400, message: "Failed to delete user!"};
       }
     }
     catch (err) {
