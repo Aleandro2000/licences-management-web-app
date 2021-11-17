@@ -35,7 +35,10 @@ export default function Login() {
                     setMessage(data.message);
                 }
             })
-            .catch(err => setMessage(err.message));
+            .catch(err => {
+                document.getElementById("loading").style.display = "none";
+                setMessage(err.message)}
+            );
     }
 
     return (
