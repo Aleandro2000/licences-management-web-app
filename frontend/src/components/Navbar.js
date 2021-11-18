@@ -11,7 +11,8 @@ export default function Navbar()
     }
 
     const deleteAccount = async () => {
-        await fetch("/auth/delete", {
+        handleLogout();
+        return await fetch("/auth/delete", {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + getCookie("jwt"),
@@ -21,7 +22,6 @@ export default function Navbar()
             .then(response => response.json())
             .then(data => alert(data.message))
             .catch(err => alert(err.message));
-        handleLogout();
     }
 
     return(

@@ -4,7 +4,6 @@ export function login(user, type) {
 
 export function logout() {
     sessionStorage.removeItem("session");
-    document.cookie = "jwt=;expires=" + new Date(0).toUTCString();
 }
 
 export function getSession() {

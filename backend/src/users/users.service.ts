@@ -111,7 +111,6 @@ export class UsersService {
           response.clearCookie("jwt");
           return {status: 200, message: "Successfully deleted!"};
         default:
-          response.clearCookie("jwt");
           return {status: 400, message: "Failed to delete user!"};
       }
     }
