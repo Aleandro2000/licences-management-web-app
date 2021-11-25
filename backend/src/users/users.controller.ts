@@ -2,8 +2,7 @@ import { Controller, Post, Body, Delete, ValidationPipe, UsePipes, UseGuards, Re
 import { UsersService } from './users.service';
 import { UserDto, TeacherDto } from "./dto/user.dto";
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
-import { Request, response, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
+import { Request, Response } from 'express';
 
 @Controller("api/v1/auth")
 export class UsersController {
