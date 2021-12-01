@@ -3,6 +3,7 @@ export function login(user, type) {
 }
 
 export function logout() {
+    document.cookie = "jwt=;expires=" + new Date(0).toUTCString();
     sessionStorage.removeItem("session");
 }
 
