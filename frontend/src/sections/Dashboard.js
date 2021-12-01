@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import Pannel from "../components/Pannel";
 import { getSession } from "../utils";
 
 export default function Dashboard() {
@@ -12,12 +13,14 @@ export default function Dashboard() {
                         {getSession().user.username}
                     </b>
                 </h1>
-                <br/>
+                <br />
                 <b>
                     {getSession().type.toUpperCase()} - DASHBOARD
                 </b>
+                <br />
+                <Pannel type={getSession().type} />
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }
