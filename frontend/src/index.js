@@ -4,6 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('react-axe');
+  axe(React, ReactDOM, 1000);
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
