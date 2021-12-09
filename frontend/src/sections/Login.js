@@ -6,11 +6,12 @@ import { login } from "../utils";
 
 export default function Login() {
     const [message, setMessage] = useState();
+    const [loading, setLoading] = useState({display: "none"});
     const history = useHistory();
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        document.getElementById("loading").style.display = "block";
+        setLoading({display: "block"});
         const { email, password, type } = event.target;
         await fetch("/auth/login", {
             method: "POST",
@@ -27,16 +28,16 @@ export default function Login() {
             .then(data => {
                 if (data.status === 200) {
                     login(data.result, type.value);
-                    document.getElementById("loading").style.display = "none";
+                    setLoading({display: "none"});
                     history.push("/dashboard");
                 }
                 else {
-                    document.getElementById("loading").style.display = "none";
+                    setLoading({display: "none"});
                     setMessage(data.message);
                 }
             })
             .catch(err => {
-                document.getElementById("loading").style.display = "none";
+                setLoading({display: "none"});
                 setMessage(err.message)}
             );
     }
@@ -81,7 +82,7 @@ export default function Login() {
                 </b>
                 <br /><br />
                 <center>
-                    <div className="spinner-border loading" role="status" id="loading">
+                    <div className="spinner-border" role="status" style={loading}>
                         <span className="sr-only" />
                     </div>
                 </center>

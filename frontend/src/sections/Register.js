@@ -4,10 +4,11 @@ import Navbar from "../components/Navbar";
 
 export default function Register() {
     const [message, setMessage] = useState();
+    const [loading, setLoading] = useState({display: "none"});
 
     const handleRegister = async (event) => {
         event.preventDefault();
-        document.getElementById("loading").style.display = "block";
+        setLoading({display: "block"});
         await fetch("/auth/register", {
             method: "POST",
             headers: {
@@ -23,7 +24,7 @@ export default function Register() {
             .then(response => response.json())
             .then(data => setMessage(data.message))
             .catch(err => setMessage(err.message));
-        document.getElementById("loading").style.display = "none";
+        setLoading({display: "none"});
     }
 
     return (
@@ -58,7 +59,7 @@ export default function Register() {
                     </div>
                 </div>
                 <br />
-                <select className="form-select" id="type" name="type">
+                <select className="form-select" name="type">
                     <option defaultValue="">SELECT USER TYPE</option>
                     <option value="student">Student</option>
                     <option value="teacher">Teacher</option>
@@ -73,7 +74,7 @@ export default function Register() {
                 </b>
                 <br /><br />
                 <center>
-                    <div className="spinner-border loading" role="status" id="loading">
+                    <div className="spinner-border" role="status" style={loading}>
                         <span className="sr-only" />
                     </div>
                 </center>
