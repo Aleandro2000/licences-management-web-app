@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { LicenceDto } from './dto/licence.dto';
 import { Licence } from "./entities/licence.entity";
+import { createQueryBuilder } from 'typeorm';
 
 @Injectable()
 export class LicencesService {
@@ -33,7 +34,8 @@ export class LicencesService {
 
   async findAll(): Promise<any> {
     try {
-      return { status: 200, result: await Licence.find({}) };
+      const result = createQueryBuilder('licence', 'l').innerJoin('l.student', 's');
+      return { status: 200, result: result };
     }
     catch (err) {
       return { status: 400, message: err };

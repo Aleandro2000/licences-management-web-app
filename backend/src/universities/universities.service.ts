@@ -3,28 +3,35 @@ import { UniversityDto } from './dto/university.dto';
 import { University } from "./entities/university.entity";
 import { Licence } from "../licences/entities/licence.entity";
 import { Diploma } from "../diploma/entities/diploma.entity";
+import { createQueryBuilder } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 @Injectable()
 export class UniversitiesService {
+  constructor(private readonly jwtService: JwtService) { }
+
   async findAll(): Promise<any> {
     try {
-      return { status: 200, result: await University.find({}) };
+      const result = createQueryBuilder('universities', 'u').innerJoin('u.student', 's');
+      return { status: 200, result: result };
     }
     catch (err) {
       return { status: 400, message: err };
     }
   }
 
-  async create(universityDto: UniversityDto): Promise<any> {
+  async create(request: Request, universityDto: UniversityDto): Promise<any> {
     try {
-      if (universityDto.name && universityDto.studentId) {
+      const data = await this.jwtService.verify(request.cookies["jwt"]);
+      if (universityDto.name && data.user.id) {
         let university = await University.findOne({ name: universityDto.name });
         if (!university) {
           university = new University();
-          university.studentId = universityDto.studentId;
+          university.studentId = data.user.id;
           university.name = universityDto.name;
           await University.save(university);
-          return { status: 200, result: university };
+          return { status: 200, result: university, message: "University assigned!"};
         }
         else
           return { status: 400, message: "Failed to append university!" };

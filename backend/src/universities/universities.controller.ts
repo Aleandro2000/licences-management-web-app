@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards, Get, Req } from '@nestjs/common';
 import { UniversitiesService } from './universities.service';
 import { UniversityDto } from './dto/university.dto';
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
+import { Request } from 'express';
 
 @Controller('/api/v1/universities')
 export class UniversitiesController {
@@ -17,8 +18,8 @@ export class UniversitiesController {
   @Post("create")
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseGuards(JwtAuthGuard)
-  async create(@Body() universityDto: UniversityDto) {
-    return await this.universitiesService.create(universityDto);
+  async create(@Req() request: Request, @Body() universityDto: UniversityDto) {
+    return await this.universitiesService.create(request, universityDto);
   }
 
   @Post("read")
