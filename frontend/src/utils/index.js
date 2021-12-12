@@ -1,3 +1,4 @@
+/*eslint-disable */
 export function login(user, type) {
     sessionStorage.setItem("session", JSON.stringify({ user: user, type: type }));
 }
@@ -30,3 +31,4 @@ export function getCookie(name) {
 
     return null;
 }
+/*eslint */
