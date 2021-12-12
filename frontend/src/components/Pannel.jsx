@@ -1,3 +1,4 @@
+import React from "react";
 import University from "./pannel_component/University";
 
 export default function Pannel(props) {

@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { NODE_ENV } from '../env';
 /*eslint-disable */
+
+const NODE_ENV="development";
 
 if (NODE_ENV !== 'production') {
   const axe = require('react-axe');

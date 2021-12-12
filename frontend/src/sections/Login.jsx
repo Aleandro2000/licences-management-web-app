@@ -4,9 +4,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { login } from "../utils";
 
-/*global fetch*/
-/*eslint no-undef: "error"*/
-
 export default function Login() {
     const [message, setMessage] = useState();
     const [loading, setLoading] = useState({display: "none"});

@@ -1,9 +1,6 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-
-/*global fetch*/
-/*eslint no-undef: "error"*/
 
 export default function Register() {
     const [message, setMessage] = useState();

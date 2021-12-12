@@ -2,9 +2,6 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { getCookie, isLogin, logout, deleteSession } from "../utils";
 
-/*global fetch, alert*/
-/*eslint no-undef: "error"*/
-
 export default function Navbar() {
     const history = useHistory();
 
