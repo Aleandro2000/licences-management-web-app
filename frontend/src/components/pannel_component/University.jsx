@@ -1,5 +1,9 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { getCookie } from "../../utils";
+
+/*global fetch, alert*/
+/*eslint no-undef: "error"*/
 
 export default function University() {
     const [university, setUniversity] = useState("");

@@ -1,49 +1,60 @@
-import { useState } from "react"
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { login } from "../utils";
 
-export default function Register() {
+/*global fetch*/
+/*eslint no-undef: "error"*/
+
+export default function Login() {
     const [message, setMessage] = useState();
     const [loading, setLoading] = useState({display: "none"});
+    const history = useHistory();
 
-    const handleRegister = async (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
         setLoading({display: "block"});
-        await fetch("/auth/register", {
+        const { email, password, type } = event.target;
+        await fetch("/auth/login", {
             method: "POST",
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             },
             body: JSON.stringify({
-                username: event.target.username.value,
-                email: event.target.email.value,
-                password: event.target.password.value,
-                type: event.target.type.value
+                email: email.value,
+                password: password.value,
+                type: type.value
             })
         })
             .then(response => response.json())
-            .then(data => setMessage(data.message))
-            .catch(err => setMessage(err.message));
-        setLoading({display: "none"});
+            .then(data => {
+                if (data.status === 200) {
+                    login(data.result, type.value);
+                    setLoading({display: "none"});
+                    history.push("/dashboard");
+                }
+                else {
+                    setLoading({display: "none"});
+                    setMessage(data.message);
+                }
+            })
+            .catch(err => {
+                setLoading({display: "none"});
+                setMessage(err.message)}
+            );
     }
 
     return (
         <div className="fadeIn">
             <Navbar />
             <br />
-            <form className="container fitting" onSubmit={handleRegister}>
+            <form className="container fitting" onSubmit={handleLogin}>
                 <h1>
                     <b>
-                        REGISTER
+                        LOGIN
                     </b>
                 </h1>
-                <br />
-                <div className="form-group row">
-                    <label htmlFor="username" className="col-sm-2 col-form-label">USERNAME</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" id="username" name="username" required />
-                    </div>
-                </div>
                 <br />
                 <div className="form-group row">
                     <label htmlFor="email" className="col-sm-2 col-form-label">EMAIL</label>
@@ -59,14 +70,14 @@ export default function Register() {
                     </div>
                 </div>
                 <br />
-                <select className="form-select" name="type">
+                <select className="form-select" id="type" name="type">
                     <option defaultValue="">SELECT USER TYPE</option>
                     <option value="student">Student</option>
                     <option value="teacher">Teacher</option>
                 </select>
                 <br />
                 <button type="submit" className="btn btn-dark">
-                    <i className="fa fa-plus" /> REGISTER
+                    <i className="fa fa-sign-in" /> LOGIN
                 </button>
                 <br /><br />
                 <b>

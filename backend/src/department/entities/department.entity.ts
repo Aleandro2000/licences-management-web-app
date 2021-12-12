@@ -1,10 +1,10 @@
-import { IsNotEmpty } from "class-validator";
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne, JoinColumn } from "typeorm";
-import { Teacher } from "../../users/entities/teacher.entity";
+import { IsNotEmpty } from 'class-validator'
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne, JoinColumn } from 'typeorm'
+import { Teacher } from '../../users/entities/teacher.entity'
 
 @Entity()
 export class Department extends BaseEntity {
-    @PrimaryGeneratedColumn("increment")
+    @PrimaryGeneratedColumn('increment')
     id: number;
 
     @Column()
@@ -16,6 +16,6 @@ export class Department extends BaseEntity {
     teacherId: number;
 
     @ManyToOne(() => Teacher, teacher => teacher.department)
-    @JoinColumn({ name: "teacherId" })
+    @JoinColumn({ name: 'teacherId' })
     teacher: Teacher;
 }

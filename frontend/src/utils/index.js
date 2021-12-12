@@ -1,3 +1,6 @@
+/*global document, sessionStorage*/
+/*eslint no-undef: "error"*/
+
 export function login(user, type) {
     sessionStorage.setItem("session", JSON.stringify({ user: user, type: type }));
 }

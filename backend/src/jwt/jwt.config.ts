@@ -1,4 +1,4 @@
 export const configuration = {
-    secret: "jwtsecrettoken",
-    expiresIn: "1h"
-};
+  secret: 'jwtsecrettoken',
+  expiresIn: '1h'
+}

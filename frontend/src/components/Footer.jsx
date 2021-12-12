@@ -1,3 +1,6 @@
+import React from 'react';
+import { REACT_APP_GITHUB, REACT_APP_LINKEDIN } from '../../env';
+
 export default function Footer()
 {
     return(
@@ -7,12 +10,12 @@ export default function Footer()
                     © Alexandru-Andrei Carmici
                 </b>
                 <br/><br/>
-                <a className="social-media" href={process.env.REACT_APP_GITHUB}>
+                <a className="social-media" href={REACT_APP_GITHUB}>
                     <button className="btn btn-dark">
                         <i className="fa fa-github"/>
                     </button>
                 </a>
-                <a className="social-media" href={process.env.REACT_APP_LINKEDIN}>
+                <a className="social-media" href={REACT_APP_LINKEDIN}>
                     <button className="btn btn-dark">
                         <i className="fa fa-linkedin"/>
                     </button>
