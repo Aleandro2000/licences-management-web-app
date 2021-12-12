@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Delete, UsePipes, ValidationPipe, UseGuards, Get, Req } from '@nestjs/common';
 import { UniversitiesService } from './universities.service';
-import { UniversityDto } from './dto/university.dto';
+import { UniversityDto } from './dto/universities.dto';
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
 import { Request } from 'express';
 

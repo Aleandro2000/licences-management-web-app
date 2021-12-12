@@ -64,12 +64,12 @@ export default function Navbar() {
                                         </Link>
                                     </li>
                                     <li className="nav-item" style={{ cursor: "pointer" }}>
-                                        <button className="btn btn-light" style={{ borderRadius: 0 }} onClick={deleteAccount}>
+                                        <button className="btn btn-light w-100" style={{ borderRadius: 0 }} onClick={deleteAccount}>
                                             <i className="fa fa-minus" />|Delete
                                         </button>
                                     </li>
                                     <li aria-label="Logout Section" className="nav-item" style={{ cursor: "pointer" }}>
-                                        <button className="btn btn-light" style={{ borderRadius: 0 }} onClick={handleLogout}>
+                                        <button className="btn btn-light w-100" style={{ borderRadius: 0 }} onClick={handleLogout}>
                                             <i className="fa fa-sign-out" />|Logout
                                         </button>
                                     </li>

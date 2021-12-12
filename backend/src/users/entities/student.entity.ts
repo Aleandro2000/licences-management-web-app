@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany, ManyToOne, JoinColumn } from "typeorm";
-import { University } from "../../universities/entities/university.entity";
+import { University } from "../../universities/entities/universities.entity";
 import { Licence } from "../../licences/entities/licence.entity";
 import { Diploma } from "../../diploma/entities/diploma.entity";
 import { Teacher } from "./teacher.entity";

@@ -1,7 +1,7 @@
 import { IsNotEmpty } from "class-validator";
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne, JoinColumn } from "typeorm";
 import { Student } from "../../users/entities/student.entity";
-import { University } from "../../universities/entities/university.entity";
+import { University } from "../../universities/entities/universities.entity";
 
 @Entity()
 export class Licence extends BaseEntity {

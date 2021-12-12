@@ -9,7 +9,7 @@ export default function University() {
     useEffect(() => {
         if (!mounted) {
             setMounted(true);
-            return fetch("/universities/findall", {
+            fetch("/universities/findall", {
                 headers: {
                     "Authorization": "Bearer " + getCookie("jwt"),
                     "Content-type": "application/json; charset=UTF-8"
@@ -18,31 +18,36 @@ export default function University() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 200)
-                        setUniversities(data.result)
+                        setUniversities(data.result);
+                    else
+                        alert(data.message.message ?? data.message);
                 })
                 .catch(err => alert(err));
         }
-        return mounted;
-    }, []);
+    }, [mounted]);
 
     const _displayTable = universities => {
         if (universities.length)
             return (
                 <>
                     <br /><br /><br />
-                    <table className="table text-center">
+                    <h2 align="left">
+                        All Students
+                    </h2>
+                    <br/>
+                    <table className="table text-center overflow-auto">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Student</th>
+                            <th scope="col">Username</th>
                             <th scope="col">University</th>
                         </tr>
                         {
                             universities.map((item, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{index}</td>
+                                        <td>{index + 1}</td>
                                         <td>{item.student.username}</td>
-                                        <td>{item.universitiy}</td>
+                                        <td>{item.name.toUpperCase()}</td>
                                     </tr>
                                 );
                             })

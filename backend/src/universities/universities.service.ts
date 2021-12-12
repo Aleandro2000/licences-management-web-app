@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { UniversityDto } from './dto/university.dto';
-import { University } from "./entities/university.entity";
+import { UniversityDto } from './dto/universities.dto';
+import { University } from "./entities/universities.entity";
 import { Licence } from "../licences/entities/licence.entity";
 import { Diploma } from "../diploma/entities/diploma.entity";
 import { createQueryBuilder } from 'typeorm';
@@ -13,7 +13,7 @@ export class UniversitiesService {
 
   async findAll(): Promise<any> {
     try {
-      const result = createQueryBuilder('universities', 'u').innerJoin('u.student', 's');
+      const result = await createQueryBuilder('university', 'u').innerJoinAndSelect('u.student', 's').getMany();
       return { status: 200, result: result };
     }
     catch (err) {

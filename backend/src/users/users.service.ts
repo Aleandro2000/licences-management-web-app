@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Diploma } from 'src/diploma/entities/diploma.entity';
 import { Licence } from 'src/licences/entities/licence.entity';
-import { University } from 'src/universities/entities/university.entity';
+import { University } from 'src/universities/entities/universities.entity';
 import { Request, Response } from "express";
 
 @Injectable()
