@@ -4,9 +4,6 @@ import { Student } from './entities/student.entity'
 import { Teacher } from './entities/teacher.entity'
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
-import { Diploma } from 'src/diploma/entities/diploma.entity'
-import { Licence } from 'src/licences/entities/licence.entity'
-import { University } from 'src/universities/entities/universities.entity'
 import { Request, Response } from 'express'
 
 @Injectable()
@@ -85,19 +82,27 @@ export class UsersService {
       const data = await this.jwtService.verify(request.cookies.jwt)
       switch (data.type) {
         case 'student':
-          await Student.delete({ id: data.user.id })
-          await Diploma.delete({ studentId: data.user.id })
-          await Licence.delete({ studentId: data.user.id })
-          await University.delete({ studentId: data.user.id })
-          response.clearCookie('jwt')
+          Student.delete({ id: data.user.id })
           return { status: 200, message: 'Successfully deleted!' }
         case 'teacher':
           await Teacher.delete({ id: data.user.id })
-          response.clearCookie('jwt')
           return { status: 200, message: 'Successfully deleted!' }
         default:
           return { status: 400, message: 'Failed to delete user!' }
       }
+    } catch (err) {
+      return { status: 400, message: err }
+    }
+  }
+
+  async deleteStudentById (userDto: UserDto): Promise<any> {
+    try {
+      if (userDto.type === "student") {
+          await Student.delete({ id: userDto.id })
+          return { status: 200, message: 'Successfully deleted!' }
+      }
+      else
+        return { status: 400, message: 'Failed to delete user!' }
     } catch (err) {
       return { status: 400, message: err }
     }

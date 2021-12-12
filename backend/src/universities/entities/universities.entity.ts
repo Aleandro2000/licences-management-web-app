@@ -17,7 +17,7 @@ export class University extends BaseEntity {
     @IsNotEmpty()
     studentId: number;
 
-    @ManyToOne(() => Student, student => student.university)
+    @ManyToOne(() => Student, student => student.university, {onDelete: "CASCADE"})
     @JoinColumn({ name: 'studentId' })
     student: Student;
 

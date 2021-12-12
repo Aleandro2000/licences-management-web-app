@@ -12,22 +12,22 @@ export default function Login() {
     const handleLogin = async (event) => {
         event.preventDefault();
         setLoading({display: "block"});
-        const { email, password, type } = event.target;
+        const type = event.target.type.value;
         await fetch("/auth/login", {
             method: "POST",
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             },
             body: JSON.stringify({
-                email: email.value,
-                password: password.value,
-                type: type.value
+                email: event.target.email.value,
+                password: event.target.password.value,
+                type: type
             })
         })
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
-                    login(data.result, type.value);
+                    login(data.result, type);
                     setLoading({display: "none"});
                     history.push("/dashboard");
                 }

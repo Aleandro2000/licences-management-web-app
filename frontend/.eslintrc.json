@@ -17,7 +17,7 @@
         "react"
     ],
     "rules": {
-        "no-redeclare": [2, {"builtinGlobals": false}],
+        "no-redeclare": [0, {"builtinGlobals": false}],
         "react/prop-types": "off",
         "globals": {
             "_": "readonly"

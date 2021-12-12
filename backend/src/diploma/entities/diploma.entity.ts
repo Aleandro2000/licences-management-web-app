@@ -20,11 +20,11 @@ export class Diploma extends BaseEntity {
     @IsNotEmpty()
     universityId: number;
 
-    @ManyToOne(() => Student, student => student.diploma)
+    @ManyToOne(() => Student, student => student.diploma, {onDelete: "CASCADE"})
     @JoinColumn({ name: "studentId" })
     student: Student;
 
-    @ManyToOne(() => University, university => university.diploma)
+    @ManyToOne(() => University, university => university.diploma, {onDelete: "CASCADE"})
     @JoinColumn({ name: "universityId" })
     university: University;
 }

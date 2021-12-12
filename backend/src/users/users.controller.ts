@@ -33,4 +33,11 @@ export class UsersController {
   async delete (@Req() request: Request, @Res() response: Response) {
     return await this.usersService.delete(request, response)
   }
+
+  @Delete('deletestudentbyid')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseGuards(JwtAuthGuard)
+  async deleteStudentById (@Body() userDto: UserDto) {
+    return await this.usersService.deleteStudentById(userDto)
+  }
 }

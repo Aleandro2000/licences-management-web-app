@@ -9,5 +9,6 @@ export const connectionOptions: ConnectionOptions = {
   database: 'licences_degree',
   entities: [
     __dirname + '/../**/*.entity{.ts,.js}'
-  ]
+  ],
+  synchronize: true
 }

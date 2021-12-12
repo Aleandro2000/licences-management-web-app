@@ -6,12 +6,13 @@ export default function Pannel(props) {
         case "student":
             return (
                 <div className="container mt-5">
-                    <University />
+                    <University type="student" />
                 </div>
             );
         case "teacher":
             return (
-                <div className="container">
+                <div className="container mt-5">
+                    <University type="teacher" />
                 </div>
             );
         default:
