@@ -19,8 +19,6 @@
     "rules": {
         "no-redeclare": [0, {"builtinGlobals": false}],
         "react/prop-types": "off",
-        "globals": {
-            "_": "readonly"
-        }
+        "no-global-assign": ["error", {"exceptions": ["sessiontStorage, document, alert, fetch"]}]
     }
 }
