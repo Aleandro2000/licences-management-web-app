@@ -77,7 +77,7 @@ export class UsersService {
     }
   }
 
-  async delete (request: Request, response: Response): Promise<any> {
+  async delete (request: Request): Promise<any> {
     try {
       const data = await this.jwtService.verify(request.cookies.jwt)
       switch (data.type) {
