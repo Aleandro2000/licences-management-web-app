@@ -3,7 +3,7 @@ import { Route, Redirect, useHistory } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { getCookie } from '../utils';
 
-const PrivateRoute = ({component: Component, ...rest}) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
     const [user, setUser] = useContext(UserContext);
     const history = useHistory();
 
@@ -18,7 +18,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 200) {
-                        setUser({result: data.result, type: data.type})
+                        setUser({ result: data.result, type: data.type })
                         history.push("/dashboard");
                     }
                     else
@@ -26,13 +26,13 @@ const PrivateRoute = ({component: Component, ...rest}) => {
                 })
                 .catch(err => alert(err.message));
         }
-    },[user, setUser]);
+    }, [user, setUser]);
 
     return (
         <Route {...rest} render={props => (
             user ?
                 <Component {...props} />
-            : <Redirect to="/login" /> )
+                : <Redirect to="/login" />)
         } />
     );
 };
