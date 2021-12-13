@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect, useState } from "react";
-import { getCookie, getSession } from "../../utils";
+import { UserContext } from '../../context/UserContext';
+import { getCookie } from "../../utils";
 
 export default function University(props) {
+    const [user, setUser] = useContext(UserContext);
+
     const [university, setUniversity] = useState("");
     const [mounted, setMounted] = useState(false);
     const [universities, setUniversities] = useState([]);
@@ -76,7 +79,7 @@ export default function University(props) {
                                                     <td>{item.student.username}</td>
                                                     <td>{item.name.toUpperCase()}</td>
                                                     {
-                                                        getSession().user.id === item.student.id ? (
+                                                        user.result.id === item.student.id ? (
                                                             <td>
                                                                 <button className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
                                                                     <i className='fa fa-minus' /> DELETE

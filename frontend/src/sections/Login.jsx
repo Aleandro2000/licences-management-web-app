@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { login } from "../utils";
+import { UserContext } from "../context/UserContext";
 
 export default function Login() {
+    const [user, setUser] = useContext(UserContext);
     const [message, setMessage] = useState();
     const [loading, setLoading] = useState({display: "none"});
     const history = useHistory();
@@ -27,7 +28,7 @@ export default function Login() {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
-                    login(data.result, type);
+                    setUser({ result: data.result, type: type });
                     setLoading({display: "none"});
                     history.push("/dashboard");
                 }

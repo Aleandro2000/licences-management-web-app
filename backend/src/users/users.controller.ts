@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Delete, ValidationPipe, UsePipes, UseGuards, Res, Req } from '@nestjs/common'
+import { Controller, Post, Body, Delete, ValidationPipe, UsePipes, UseGuards, Res, Req, Get } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { UserDto, TeacherDto } from './dto/user.dto'
 import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard'
@@ -8,11 +8,11 @@ import { Request, Response } from 'express'
 export class UsersController {
   constructor (private readonly usersService: UsersService) { }
 
-  @Post('addstudent')
+  @Get('getuser')
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseGuards(JwtAuthGuard)
-  async addStudent (@Body() teacherDto: TeacherDto) {
-    return await this.usersService.addStudent(teacherDto)
+  async getUser (@Req() request: Request) {
+    return await this.usersService.getUser(request)
   }
 
   @Post('register')

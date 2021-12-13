@@ -10,10 +10,17 @@ import { Request, Response } from 'express'
 export class UsersService {
   constructor (private readonly jwtService: JwtService) { }
 
-  async addStudent (teacherDto: TeacherDto): Promise<any> {
+  async getUser (request: Request): Promise<any> {
     try {
-      const student = await Student.update({ id: teacherDto.studentId }, { teacherId: teacherDto.teacherId })
-      return { status: 200, result: student, message: 'Teacher assigned!' }
+      const data = await this.jwtService.verify(request.cookies.jwt)
+      switch (data.type) {
+        case "student":
+          return { status: 200, result: await Student.findOne({ id: data.user.id}), type: data.type }
+        case "teacher":
+          return { status: 200, result: await Teacher.findOne({ id: data.user.id}), type: data.type }
+        default:
+          return { status: 400, message: "Failed to get user!" }
+      }
     } catch (err) {
       return { status: 400, message: err }
     }

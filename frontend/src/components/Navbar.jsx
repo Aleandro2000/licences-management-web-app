@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { getCookie, isLogin, logout, deleteSession } from "../utils";
+import { UserContext } from "../context/UserContext";
+import { getCookie, logout } from "../utils";
 
 export default function Navbar() {
+    const [user, setUser] = useContext(UserContext);
     const history = useHistory();
 
     const handleLogout = () => {
@@ -10,13 +12,8 @@ export default function Navbar() {
         history.push("/login");
     }
 
-    const handleRemoveSession = () => {
-        deleteSession();
-        history.push("/login");
-    }
-
     const deleteAccount = async () => {
-        handleRemoveSession();
+        handleLogout();
         return await fetch("/auth/delete", {
             method: "DELETE",
             headers: {
@@ -44,7 +41,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         {
-                            !isLogin() ? (
+                            !user ? (
                                 <>
                                     <li className="nav-item" style={{ cursor: "pointer" }}>
                                         <Link aria-label="Login Section" className="nav-link" to="/login">

@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Pannel from "../components/Pannel";
-import { getSession } from "../utils";
+import { useHistory } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import { getCookie } from "../utils";
 
 export default function Dashboard() {
+    const [user, setUser] = useContext(UserContext);
+
     return (
         <div className="fadeIn">
             <Navbar />
             <div className="container fitting">
                 <h1>
                     <b>
-                        {getSession().user.username}
+                        {user.result.username}
                     </b>
                 </h1>
                 <br />
                 <b>
-                    {getSession().type.toUpperCase()} - DASHBOARD
+                    {user.type.toUpperCase()} - DASHBOARD
                 </b>
                 <br />
-                <Pannel type={getSession().type} />
+                <Pannel type={user.type} />
             </div>
             <Footer />
         </div>

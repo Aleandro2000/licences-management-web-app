@@ -20,6 +20,7 @@
         "no-redeclare": [0, {"builtinGlobals": false}],
         "react/prop-types": "off",
         "globals": 0,
-        "no-undef": "off"
+        "no-undef": "off",
+        "no-unused-vars": "off"
     }
 }
