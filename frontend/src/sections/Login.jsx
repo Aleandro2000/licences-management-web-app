@@ -78,7 +78,13 @@ export default function Login() {
                 </button>
                 <br /><br />
                 <b>
-                    {message}
+                    {
+                        message ? (
+                            <div className="alert alert-danger" role="alert">
+                                {message}
+                            </div>
+                        ) : (<></>)
+                    }
                 </b>
                 <br /><br />
                 <center>

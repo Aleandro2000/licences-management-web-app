@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import { getCookie } from "../../utils";
+import { getCookie, getSession } from "../../utils";
 
 export default function University(props) {
     const [university, setUniversity] = useState("");
@@ -75,6 +75,15 @@ export default function University(props) {
                                                     <td>{index + 1}</td>
                                                     <td>{item.student.username}</td>
                                                     <td>{item.name.toUpperCase()}</td>
+                                                    {
+                                                        getSession().user.id === item.student.id ? (
+                                                            <td>
+                                                                <button className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
+                                                                    <i className='fa fa-minus' /> DELETE
+                                                                </button>
+                                                            </td>
+                                                        ) : (<></>)
+                                                    }
                                                 </tr>
                                             );
                                         })
@@ -173,7 +182,13 @@ export default function University(props) {
                             </div>
                         </center>
                         <br />
-                        {message}
+                        {
+                            message ? (
+                                <div className="alert alert-dark" role="alert">
+                                    {message}
+                                </div>
+                            ) : (<></>)
+                        }
                         <br />
                     </>
                 );
