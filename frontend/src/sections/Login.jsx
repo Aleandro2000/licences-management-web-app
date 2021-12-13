@@ -80,7 +80,7 @@ export default function Login() {
                 <b>
                     {
                         message ? (
-                            <div className="alert alert-danger" role="alert">
+                            <div className="alert alert-dark" role="alert">
                                 {message}
                             </div>
                         ) : (<></>)

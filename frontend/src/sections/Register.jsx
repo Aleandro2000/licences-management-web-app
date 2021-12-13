@@ -72,7 +72,7 @@ export default function Register() {
                 <b>
                     {
                         message ? (
-                            <div className="alert alert-danger" role="alert">
+                            <div className="alert alert-dark" role="alert">
                                 {message}
                             </div>
                         ) : (<></>)

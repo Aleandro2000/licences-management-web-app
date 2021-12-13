@@ -22,20 +22,6 @@ export class UniversitiesController {
     return await this.universitiesService.create(request, universityDto)
   }
 
-  @Post('read')
-  @UseGuards(JwtAuthGuard)
-  @UsePipes(new ValidationPipe({ transform: true }))
-  async read (@Body() universityDto: UniversityDto) {
-    return await this.universitiesService.read(universityDto)
-  }
-
-  @Post('update')
-  @UseGuards(JwtAuthGuard)
-  @UsePipes(new ValidationPipe({ transform: true }))
-  async update (@Body() universityDto: UniversityDto) {
-    return await this.universitiesService.update(universityDto)
-  }
-
   @Delete('delete')
   @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe({ transform: true }))
