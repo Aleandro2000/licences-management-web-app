@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Redirect, useHistory } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { getCookie } from '../utils';
 
-const PublicRoute = ({component: Component, restricted, ...rest}) => {
+const PublicRoute = ({ component: Component, restricted, ...rest }) => {
     const [user, setUser] = useContext(UserContext);
+    const [loading, setLodaing] = useState(true);
     const history = useHistory();
 
     useEffect(() => {
@@ -18,20 +19,28 @@ const PublicRoute = ({component: Component, restricted, ...rest}) => {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 200) {
-                        setUser({result: data.result, type: data.type})
+                        setUser({ result: data.result, type: data.type })
                     }
                     else
-                        history.push("/login");
+                        history.push("/home");
                 })
                 .catch(err => alert(err.message));
+            setLodaing(false);
         }
-    },[user, setUser]);
+        else
+            setLodaing(false);
+    }, [user, setUser]);
+
+    if (loading)
+        return (
+            <></>
+        );
 
     return (
         <Route {...rest} render={props => (
             user && restricted ?
                 <Redirect to="/dashboard" />
-            : <Component {...props} />
+                : <Component {...props} />
         )} />
     );
 };

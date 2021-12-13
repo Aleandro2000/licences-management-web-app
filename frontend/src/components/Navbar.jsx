@@ -9,7 +9,8 @@ export default function Navbar() {
 
     const handleLogout = () => {
         logout();
-        history.push("/login");
+        setUser();
+        history.push("/home");
     }
 
     const deleteAccount = async () => {
