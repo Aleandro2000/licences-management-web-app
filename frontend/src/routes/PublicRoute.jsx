@@ -1,13 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Route, Redirect, useHistory } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Route, Redirect } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { getCookie } from '../utils';
 
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
     const [user, setUser] = useContext(UserContext);
-    const [loading, setLodaing] = useState(true);
-    const history = useHistory();
-
     useEffect(() => {
         if (!user) {
             fetch("/auth/getuser", {
@@ -18,23 +15,12 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.status === 200) {
+                    if (data.status === 200)
                         setUser({ result: data.result, type: data.type })
-                    }
-                    else
-                        history.push("/home");
                 })
                 .catch(err => alert(err.message));
-            setLodaing(false);
         }
-        else
-            setLodaing(false);
     }, [user, setUser]);
-
-    if (loading)
-        return (
-            <></>
-        );
 
     return (
         <Route {...rest} render={props => (
