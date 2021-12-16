@@ -7,7 +7,7 @@ export default function Licence() {
     const handleSubmit = async e => {
         e.preventDefault();
     }
-    
+
     const handleChange = e => {
         setUniversity(e.target.value);
     };
@@ -32,17 +32,24 @@ export default function Licence() {
             <br />
             {
                 universities.length ? (
-                    <select aria-label='University' className="form-select" defaultValue={universities[0].name} onChange={handleChange} id="type" name="type">
-                    {
-                        universities.map((item, index) => {
-                            return (
-                                <option value={item.id} key={index}>
-                                    {item.name.toUpperCase()}
-                                </option>
-                            )
-                        })
-                    }
-                </select>
+                    <>
+                        <label htmlFor="type">
+                            <b>
+                                Select Unviersity
+                            </b>
+                        </label>
+                        <select aria-label='University' className="form-select" defaultValue={universities[0].name} onChange={handleChange} id="type" name="type">
+                            {
+                                universities.map((item, index) => {
+                                    return (
+                                        <option value={item.id} key={index}>
+                                            {item.name.toUpperCase()}
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </>
                 ) : (
                     <></>
                 )
