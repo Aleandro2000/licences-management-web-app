@@ -125,7 +125,7 @@ export default function University(props) {
                                                         <td>{item.student.username}</td>
                                                         <td>{item.name.toUpperCase()}</td>
                                                         <td>
-                                                            <button className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
+                                                            <button aria-label='Delete' className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
                                                                 <i className='fa fa-minus' /> DELETE
                                                             </button>
                                                         </td>
@@ -175,12 +175,20 @@ export default function University(props) {
             case "student":
                 return (
                     <>
-                        <select className="form-select" defaultValue={university} onChange={handleChange} id="type" name="type">
-                            <option value="">SELECT UNIVERSITY</option>
-                            <option value="upb">UPB</option>
-                            <option value="ase">ASE</option>
-                            <option value="unibuc">UniBuc</option>
-                            <option value="utcb">UTCB</option>
+                        <label htmlFor="type">
+                            <h2>
+                                <b>
+                                    Add Unviersity
+                                </b>
+                            </h2>
+                        </label>
+                        <br /><br />
+                        <select aria-label='University' className="form-select" defaultValue={university} onChange={handleChange} id="type" name="type">
+                            <option aria-labelledby='None' value="">SELECT UNIVERSITY</option>
+                            <option aria-labelledby='UPB' value="upb">UPB</option>
+                            <option aria-labelledby='ASE' value="ase">ASE</option>
+                            <option aria-labelledby='UniBuc' value="unibuc">UniBuc</option>
+                            <option aria-labelledby='UTCB' value="utcb">UTCB</option>
                         </select>
                         <br />
                         <button type="submit" className="btn btn-dark">
@@ -203,11 +211,6 @@ export default function University(props) {
                         <br />
                     </>
                 );
-            case "teacher":
-                return (
-                    <>
-                    </>
-                );
             default:
                 return (
                     <>
@@ -218,7 +221,7 @@ export default function University(props) {
 
     return (
         <>
-            <form className="container mt-5" onSubmit={handleSubmit}>
+            <form className="form-group container mt-5" onSubmit={handleSubmit}>
                 {_renderOption()}
             </form>
             {_displayTable(universities)}

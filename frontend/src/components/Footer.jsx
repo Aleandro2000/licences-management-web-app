@@ -11,12 +11,12 @@ export default function Footer()
                 </b>
                 <br/><br/>
                 <a className="social-media" href={GITHUB}>
-                    <button className="btn btn-dark">
+                    <button aria-label='GitHub' className="btn btn-dark">
                         <i className="fa fa-github"/>
                     </button>
                 </a>
                 <a className="social-media" href={LINKEDIN}>
-                    <button className="btn btn-dark">
+                    <button aria-label='Linkedin' className="btn btn-dark">
                         <i className="fa fa-linkedin"/>
                     </button>
                 </a>
