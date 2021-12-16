@@ -7,9 +7,11 @@ export default function Licence() {
     const [universities, setUniversities] = useContext(UniversitiesContext);
     const [university, setUniversity] = useState(universities[0]);
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState({ display: "none" });
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setLoading({ display: "block" });
         await fetch("/licence/upload", {
             method: "POST",
             headers: {
@@ -24,8 +26,14 @@ export default function Licence() {
             })
         })
             .then(response => response.json())
-            .then(data => setMessage(data.message))
-            .catch(err => setMessage(err));
+            .then(data => {
+                setMessage(data.message);
+                setLoading({ display: "none" });
+            })
+            .catch(err => {
+                setMessage(err);
+                setLoading({ display: "none" });
+            });
     }
 
     const handleChange = e => {
@@ -78,7 +86,13 @@ export default function Licence() {
             <button type="submit" className="btn btn-dark">
                 <i className="fa fa-send" /> SEND
             </button>
-            <br /><br />
+            <br />
+            <center>
+                <div className="spinner-border" role="status" style={loading}>
+                    <span className="sr-only" />
+                </div>
+            </center>
+            <br />
             <b>
                 {
                     message ? (
