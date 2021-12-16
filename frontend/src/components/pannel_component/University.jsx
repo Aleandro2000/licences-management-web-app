@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { useEffect, useState } from "react";
-import { UserContext } from '../../context/UserContext';
+import { UniversitiesContext, UserContext } from '../../context/UserContext';
 import { getCookie } from "../../utils";
 
 export default function University(props) {
     const [user, setUser] = useContext(UserContext);
+    const [universities, setUniversities] = useContext(UniversitiesContext);
 
     const [university, setUniversity] = useState("");
     const [mounted, setMounted] = useState(false);
-    const [universities, setUniversities] = useState([]);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState({ display: "none" });
 
