@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Licence() {
     const handleSubmit = async e => {
-        e.prevendDefault();
+        e.preventDefault();
     }
 
     return (
