@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UniversitiesContext } from "../../context/UserContext";
 
 export default function Licence() {
     const [universities, setUniversities] = useContext(UniversitiesContext);
+    const [university, setUniversity] = useState(universities[0]);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -38,7 +39,7 @@ export default function Licence() {
                                 Select Unviersity
                             </b>
                         </label>
-                        <select aria-label='University' className="form-select" defaultValue={universities[0].name} onChange={handleChange} id="type" name="type">
+                        <select aria-label='University' className="form-select" defaultValue={university} onChange={handleChange} id="type" name="type">
                             {
                                 universities.map((item, index) => {
                                     return (
