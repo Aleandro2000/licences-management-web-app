@@ -221,10 +221,19 @@ export default function University(props) {
 
     return (
         <>
-            <form className="form-group container mt-5" onSubmit={handleSubmit}>
+            <form className="form-group container" onSubmit={handleSubmit}>
                 {_renderOption()}
             </form>
-            {_displayTable(universities)}
+            {
+                universities.length ? (
+                    <div className="custom-card">
+                        {_displayTable(universities)}
+                    </div>
+                ) : (
+                    <></>
+                )
+            }
+            <br />
         </>
     )
 }

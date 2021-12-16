@@ -6,14 +6,21 @@ export default function Licence() {
     }
 
     return (
-        <form className="form-group" onSubmit={handleSubmit}>
+        <form className="form-group custom-card" onSubmit={handleSubmit}>
+            <br />
+            <label htmlFor="title">
+                <b>
+                    Title
+                </b>
+            </label>
+            <input type="text" className="form-control" id="title" placeholder="WRITE LICENCE TITLE HERE" />
             <br />
             <label htmlFor="licence">
                 <b>
                     Send Licence
                 </b>
             </label>
-            <br /><br />
+            <br />
             <textarea className="form-control" id="licnece" />
             <br />
             <button type="submit" className="btn btn-dark">
