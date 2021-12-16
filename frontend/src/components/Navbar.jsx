@@ -7,15 +7,14 @@ export default function Navbar() {
     const [user, setUser] = useContext(UserContext);
     const history = useHistory();
 
-    const handleLogout = () => {
-        logout();
-        setUser();
-        history.push("/home");
+    const handleLogout = async () => {
+        await logout();
+        await setUser();
+        await history.push("/home");
     }
 
     const deleteAccount = async () => {
-        handleLogout();
-        return await fetch("/auth/delete", {
+        await fetch("/auth/delete", {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + getCookie("jwt"),
@@ -25,6 +24,7 @@ export default function Navbar() {
             .then(response => response.json())
             .then(data => alert(data.message))
             .catch(err => alert(err.message));
+        await handleLogout();
     }
 
     return (
