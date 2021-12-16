@@ -66,31 +66,35 @@ export default function University(props) {
                             <br />
                             <div className='overflow-auto'>
                                 <table className="table text-center overflow-auto">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">University</th>
-                                    </tr>
-                                    {
-                                        universities.map((item, index) => {
-                                            return (
-                                                <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{item.student.username}</td>
-                                                    <td>{item.name.toUpperCase()}</td>
-                                                    {
-                                                        user.result.id === item.student.id ? (
-                                                            <td>
-                                                                <button className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
-                                                                    <i className='fa fa-minus' /> DELETE
-                                                                </button>
-                                                            </td>
-                                                        ) : (<></>)
-                                                    }
-                                                </tr>
-                                            );
-                                        })
-                                    }
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">University</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            universities.map((item, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>{index + 1}</td>
+                                                        <td>{item.student.username}</td>
+                                                        <td>{item.name.toUpperCase()}</td>
+                                                        {
+                                                            user.result.id === item.student.id ? (
+                                                                <td>
+                                                                    <button className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
+                                                                        <i className='fa fa-minus' /> DELETE
+                                                                    </button>
+                                                                </td>
+                                                            ) : (<></>)
+                                                        }
+                                                    </tr>
+                                                );
+                                            })
+                                        }
+                                    </tbody>
                                 </table>
                             </div>
                         </>
@@ -105,27 +109,31 @@ export default function University(props) {
                             <br />
                             <div className="overflow-auto">
                                 <table className="table text-center">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">University</th>
-                                    </tr>
-                                    {
-                                        universities.map((item, index) => {
-                                            return (
-                                                <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{item.student.username}</td>
-                                                    <td>{item.name.toUpperCase()}</td>
-                                                    <td>
-                                                        <button className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
-                                                            <i className='fa fa-minus' /> DELETE
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })
-                                    }
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">University</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            universities.map((item, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>{index + 1}</td>
+                                                        <td>{item.student.username}</td>
+                                                        <td>{item.name.toUpperCase()}</td>
+                                                        <td>
+                                                            <button className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
+                                                                <i className='fa fa-minus' /> DELETE
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })
+                                        }
+                                    </tbody>
                                 </table>
                             </div>
                         </>
