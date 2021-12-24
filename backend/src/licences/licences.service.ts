@@ -12,7 +12,7 @@ export class LicencesService {
         licence = await Licence.find({ studentId: licenceDto.studentId });
         if (licence.length) {
           licence = await Licence.update({ studentId: licenceDto.studentId }, { content: licenceDto.content, title: licenceDto.title, universityId: licenceDto.universityId });
-          return { staus: 200, result: licence };
+          return { staus: 200, result: licence, message: "Licence uploaded!" };
         }
         else {
           licence = new Licence();
@@ -21,7 +21,7 @@ export class LicencesService {
           licence.title = licenceDto.title;
           licence.content = licenceDto.content;
           await Licence.save(licence);
-          return { staus: 200, result: licence };
+          return { staus: 200, result: licence, message: "Licence uploaded!" };
         }
       }
       else

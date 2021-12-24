@@ -28,7 +28,6 @@ export default function Licence() {
             .then(response => response.json())
             .then(data => {
                 setMessage(data.message);
-                alert(JSON.stringify(data))
                 setLoading({ display: "none" });
             })
             .catch(err => {
@@ -93,15 +92,15 @@ export default function Licence() {
                             </div>
                         </center>
                         <br />
-                        <b>
-                            {
-                                message ? (
-                                    <div className="alert alert-dark" role="alert">
+                        {
+                            message ? (
+                                <div className="alert alert-dark" role="alert">
+                                    <b>
                                         {message}
-                                    </div>
-                                ) : (<></>)
-                            }
-                        </b>
+                                    </b>
+                                </div>
+                            ) : (<></>)
+                        }
                         <br />
                     </form>
                 ) : (
