@@ -28,7 +28,7 @@ export class Licence extends BaseEntity {
     @JoinColumn({ name: "studentId" })
     student: Student;
 
-    @ManyToOne(() => University, university => university.licence, {cascade: true})
+    @ManyToOne(() => University, university => university.licence, {onDelete: "CASCADE"})
     @JoinColumn({ name: "universityId" })
     university: University;
 }
