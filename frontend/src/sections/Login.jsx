@@ -68,7 +68,7 @@ export default function Login() {
                     </div>
                 </div>
                 <br />
-                <select className="form-select" id="type" name="type">
+                <select aria-label="User Type" className="form-select" id="type" name="type">
                     <option defaultValue="">SELECT USER TYPE</option>
                     <option value="student">Student</option>
                     <option value="teacher">Teacher</option>

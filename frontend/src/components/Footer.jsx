@@ -4,7 +4,7 @@ import { GITHUB, LINKEDIN } from '../utils/social-media';
 export default function Footer()
 {
     return(
-        <div className="container footer">
+        <footer className="container footer">
             <div className="custom-card">
                 <b>
                     © Alexandru-Andrei Carmici
@@ -21,6 +21,6 @@ export default function Footer()
                     </button>
                 </a>
             </div>
-        </div>
+        </footer>
     );
 }
