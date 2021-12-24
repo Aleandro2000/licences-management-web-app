@@ -28,6 +28,7 @@ export default function Licence() {
             .then(response => response.json())
             .then(data => {
                 setMessage(data.message);
+                alert(JSON.stringify(data))
                 setLoading({ display: "none" });
             })
             .catch(err => {
@@ -41,26 +42,30 @@ export default function Licence() {
     };
 
     return (
-        <form className="form-group custom-card" onSubmit={handleSubmit}>
-            <br />
-            <label htmlFor="title">
-                <b>
-                    Title
-                </b>
-            </label>
-            <input type="text" className="form-control" id="title" name="title" placeholder="WRITE LICENCE TITLE HERE" required />
-            <br />
-            <label htmlFor="content">
-                <b>
-                    Send Licence
-                </b>
-            </label>
-            <br />
-            <textarea className="form-control" id="content" name="content" required />
-            <br />
+        <>
             {
                 universities.length ? (
-                    <>
+                    <form className="form-group custom-card" onSubmit={handleSubmit}>
+                        <br /><br />
+                        <h2 align="left">
+                            Send Licences
+                        </h2>
+                        <br />
+                        <label htmlFor="title">
+                            <b>
+                                Title
+                            </b>
+                        </label>
+                        <input type="text" className="form-control" id="title" name="title" placeholder="WRITE LICENCE TITLE HERE" required />
+                        <br />
+                        <label htmlFor="content">
+                            <b>
+                                Send Licence
+                            </b>
+                        </label>
+                        <br />
+                        <textarea className="form-control" id="content" name="content" required />
+                        <br />
                         <label htmlFor="university">
                             <b>
                                 Select Unviersity
@@ -77,32 +82,32 @@ export default function Licence() {
                                 })
                             }
                         </select>
-                    </>
+                        <br />
+                        <button type="submit" className="btn btn-dark">
+                            <i className="fa fa-send" /> SEND
+                        </button>
+                        <br /><br />
+                        <center>
+                            <div className="spinner-border" role="status" style={loading}>
+                                <span className="sr-only" />
+                            </div>
+                        </center>
+                        <br />
+                        <b>
+                            {
+                                message ? (
+                                    <div className="alert alert-dark" role="alert">
+                                        {message}
+                                    </div>
+                                ) : (<></>)
+                            }
+                        </b>
+                        <br />
+                    </form>
                 ) : (
                     <></>
                 )
             }
-            <br />
-            <button type="submit" className="btn btn-dark">
-                <i className="fa fa-send" /> SEND
-            </button>
-            <br />
-            <center>
-                <div className="spinner-border" role="status" style={loading}>
-                    <span className="sr-only" />
-                </div>
-            </center>
-            <br />
-            <b>
-                {
-                    message ? (
-                        <div className="alert alert-dark" role="alert">
-                            {message}
-                        </div>
-                    ) : (<></>)
-                }
-            </b>
-            <br />
-        </form>
-    )
+        </>
+    );
 }

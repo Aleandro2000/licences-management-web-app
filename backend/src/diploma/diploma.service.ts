@@ -9,7 +9,7 @@ export class DiplomaService {
       if (diplomaDto.studentId && diplomaDto.universityId && diplomaDto.grade) {
         let diploma;
         diploma = await Diploma.find({ studentId: diplomaDto.studentId });
-        if (diploma) {
+        if (diploma.length) {
           diploma = await Diploma.update({ studentId: diplomaDto.studentId }, { grade: diplomaDto.grade, universityId: diplomaDto.universityId });
           return { staus: 200, result: diploma };
         }

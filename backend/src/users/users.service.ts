@@ -8,16 +8,16 @@ import { Request, Response } from 'express'
 
 @Injectable()
 export class UsersService {
-  constructor (private readonly jwtService: JwtService) { }
+  constructor(private readonly jwtService: JwtService) { }
 
-  async getUser (request: Request): Promise<any> {
+  async getUser(request: Request): Promise<any> {
     try {
       const data = await this.jwtService.verify(request.cookies.jwt)
       switch (data.type) {
         case "student":
-          return { status: 200, result: await Student.findOne({ id: data.user.id}), type: data.type }
+          return { status: 200, result: await Student.findOne({ id: data.user.id }), type: data.type }
         case "teacher":
-          return { status: 200, result: await Teacher.findOne({ id: data.user.id}), type: data.type }
+          return { status: 200, result: await Teacher.findOne({ id: data.user.id }), type: data.type }
         default:
           return { status: 400, message: "Failed to get user!" }
       }
@@ -26,7 +26,7 @@ export class UsersService {
     }
   }
 
-  async register (userDto: UserDto): Promise<any> {
+  async register(userDto: UserDto): Promise<any> {
     try {
       let user
       switch (userDto.type) {
@@ -58,7 +58,7 @@ export class UsersService {
     }
   }
 
-  async login (userDto: UserDto, response: Response): Promise<any> {
+  async login(userDto: UserDto, response: Response): Promise<any> {
     try {
       let user
       switch (userDto.type) {
@@ -84,7 +84,7 @@ export class UsersService {
     }
   }
 
-  async delete (request: Request): Promise<any> {
+  async delete(request: Request): Promise<any> {
     try {
       const data = await this.jwtService.verify(request.cookies.jwt)
       switch (data.type) {
@@ -102,11 +102,11 @@ export class UsersService {
     }
   }
 
-  async deleteStudentById (userDto: UserDto): Promise<any> {
+  async deleteStudentById(userDto: UserDto): Promise<any> {
     try {
       if (userDto.type === "student") {
-          await Student.delete({ id: userDto.id })
-          return { status: 200, message: 'Successfully deleted!' }
+        await Student.delete({ id: userDto.id })
+        return { status: 200, message: 'Successfully deleted!' }
       }
       else
         return { status: 400, message: 'Failed to delete user!' }

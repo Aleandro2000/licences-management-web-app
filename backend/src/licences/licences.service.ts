@@ -10,7 +10,7 @@ export class LicencesService {
       if (licenceDto.studentId && licenceDto.universityId && licenceDto.title && licenceDto.content) {
         let licence;
         licence = await Licence.find({ studentId: licenceDto.studentId });
-        if (licence) {
+        if (licence.length) {
           licence = await Licence.update({ studentId: licenceDto.studentId }, { content: licenceDto.content, title: licenceDto.title, universityId: licenceDto.universityId });
           return { staus: 200, result: licence };
         }
