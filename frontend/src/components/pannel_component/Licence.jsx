@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UniversitiesContext, UserContext } from "../../context/UserContext";
 import { getCookie } from "../../utils";
 
@@ -81,6 +81,11 @@ export default function Licence() {
                 );
             });
     };
+
+    useEffect(() => {
+        if (!universities.length)
+            setLicences([]);
+    }, [universities]);
 
     return (
         <>
