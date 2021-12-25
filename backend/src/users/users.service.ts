@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common'
-import { UserDto, TeacherDto } from './dto/user.dto'
-import { Student } from './entities/student.entity'
-import { Teacher } from './entities/teacher.entity'
-import * as bcrypt from 'bcrypt'
-import { JwtService } from '@nestjs/jwt'
-import { Request, Response } from 'express'
+import { Injectable } from '@nestjs/common';
+import { UserDto, TeacherDto } from './dto/user.dto';
+import { Student } from './entities/student.entity';
+import { Teacher } from './entities/teacher.entity';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class UsersService {

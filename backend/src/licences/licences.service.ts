@@ -2,9 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { LicenceDto } from './dto/licence.dto';
 import { Licence } from "./entities/licence.entity";
 import { createQueryBuilder } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 @Injectable()
 export class LicencesService {
+  constructor(private readonly jwtService: JwtService) { }
+
   async upload(licenceDto: LicenceDto): Promise<any> {
     try {
       if (licenceDto.studentId && licenceDto.universityId && licenceDto.title && licenceDto.content) {
@@ -34,7 +38,18 @@ export class LicencesService {
 
   async findAll(): Promise<any> {
     try {
-      const result = createQueryBuilder('licence', 'l').innerJoin('l.student', 's');
+      const result = createQueryBuilder('licence', 'l').innerJoinAndSelect('l.student', 's').getMany();
+      return { status: 200, result: result };
+    }
+    catch (err) {
+      return { status: 400, message: err };
+    }
+  }
+
+  async find(request: Request): Promise<any> {
+    try {
+      const data = await this.jwtService.verify(request.cookies.jwt);
+      const result = await createQueryBuilder('licence', 'l').innerJoinAndSelect('l.university', 'u.studentId=' + data.user.id).getMany();
       return { status: 200, result: result };
     }
     catch (err) {

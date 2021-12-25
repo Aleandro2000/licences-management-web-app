@@ -2,10 +2,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { Module } from '@nestjs/common'
 import { UniversitiesService } from './universities.service'
 import { UniversitiesController } from './universities.controller'
-import { JwtModule } from '@nestjs/jwt'
-import { JwtStrategy } from '../jwt/jwt.strategy'
-import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard'
-import { configuration } from '../jwt/jwt.config'
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from '../jwt/jwt.strategy';
+import { JwtAuthGuard } from 'src/jwt/jwt.auth.guard';
+import { configuration } from '../jwt/jwt.config';
 
 @Module({
   imports: [
