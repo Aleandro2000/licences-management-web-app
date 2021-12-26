@@ -87,7 +87,6 @@ export default function Grade() {
                             <th scope="col">Student</th>
                             <th scope="col">University</th>
                             <th scope="col">Teacher</th>
-                            <th scope="col">Grade</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,7 +99,8 @@ export default function Grade() {
                                         <td>
                                             {
                                                 item.university.length ? (
-                                                    <select aria-label='University' className="form-select" defaultValue={item.university[0].name} onChange={handleChange("university")} id="type" name="type">
+                                                    <select aria-label='University' className="form-select" onChange={handleChange("university")} id="type" name="type">
+                                                        <option aria-labelledby="SHOW&SELECT" value="">SHOW&amp;SELECT</option>
                                                         {
                                                             item.university.map((item, index) => {
                                                                 return <option key={index} aria-labelledby={item.name.toUpperCase()} value={item.id}>{item.name.toUpperCase()}</option>;
