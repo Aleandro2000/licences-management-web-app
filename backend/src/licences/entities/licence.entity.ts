@@ -12,7 +12,7 @@ export class Licence extends BaseEntity {
     @IsNotEmpty()
     title: string;
 
-    @Column()
+    @Column("longtext")
     @IsNotEmpty()
     content: string;
 
@@ -24,11 +24,11 @@ export class Licence extends BaseEntity {
     @IsNotEmpty()
     universityId: number;
 
-    @ManyToOne(() => Student, student => student.licence, {onDelete: "CASCADE"})
+    @ManyToOne(() => Student, student => student.licence, { onDelete: "CASCADE" })
     @JoinColumn({ name: "studentId" })
     student: Student;
 
-    @ManyToOne(() => University, university => university.licence, {onDelete: "CASCADE"})
+    @ManyToOne(() => University, university => university.licence, { onDelete: "CASCADE" })
     @JoinColumn({ name: "universityId" })
     university: University;
 }
