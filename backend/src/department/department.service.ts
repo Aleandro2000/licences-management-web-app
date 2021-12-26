@@ -2,17 +2,27 @@ import { Injectable } from '@nestjs/common';
 import { DepartmentDto } from './dto/department.dto';
 import { Department } from './entities/department.entity';
 import { createQueryBuilder } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 @Injectable()
 export class DepartmentService {
-  async add(departmentDto: DepartmentDto): Promise<any> {
+  constructor(private readonly jwtService: JwtService) { }
+  
+  async add(request: Request, departmentDto: DepartmentDto): Promise<any> {
     try {
-      if (departmentDto.name) {
-        const department = new Department()
-        department.teacherId = departmentDto.teacherId
-        department.name = departmentDto.name
-        await department.save()
-        return { status: 200, result: department }
+      const data = await this.jwtService.verify(request.cookies.jwt)
+      if (data.user.id) {
+        let department = await Department.findOne({ teacherId: data.user.id, name: departmentDto.name })
+        if (!department) {
+          department = new Department()
+          department.teacherId = data.user.id
+          department.name = departmentDto.name
+          await department.save()
+          return { status: 200, result: department }
+        }
+        else
+          return { status: 400, message: "Department name may not be duplicated!" }
       }
       else
         return { status: 400, message: "Department name may not be empty!" }

@@ -47,7 +47,6 @@ export default function Department() {
                 "Authorization": "Bearer " + getCookie("jwt")
             },
             body: JSON.stringify({
-                teacherId: user.result.id,
                 name: department
             })
         })
