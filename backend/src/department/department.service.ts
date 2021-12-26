@@ -34,7 +34,7 @@ export class DepartmentService {
     try {
       if (departmentDto.id) {
         await Department.delete({ id: departmentDto.id })
-        return { status: 200, message: 'Diploma succesfully deleted!' }
+        return { status: 200, message: 'Department succesfully deleted!' }
       } else { return { status: 400, message: 'Failed to delete diploma!' } }
     } catch (err) {
       return { status: 400, message: err }
