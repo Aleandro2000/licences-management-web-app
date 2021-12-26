@@ -123,7 +123,7 @@ export default function University(props) {
                                                                         <i className='fa fa-minus' /> DELETE
                                                                     </button>
                                                                 </td>
-                                                            ) : (<></>)
+                                                            ) : (<td></td>)
                                                         }
                                                     </tr>
                                                 );
@@ -167,11 +167,17 @@ export default function University(props) {
                                                                     </button>
                                                                 </td>
                                                             ) : (
-                                                                <td>
-                                                                    <button aria-label='Delete' className="border border-dark btn btn-light w-100" onClick={() => handleRemove(item.student.id)}>
-                                                                        <i className='fa fa-minus' /> REMOVE
-                                                                    </button>
-                                                                </td>
+                                                                <>
+                                                                    {
+                                                                        item.student.teacherId === user.result.id ? (
+                                                                            <td>
+                                                                                <button aria-label='Delete' className="border border-dark btn btn-light w-100" onClick={() => handleRemove(item.student.id)}>
+                                                                                    <i className='fa fa-minus' /> REMOVE
+                                                                                </button>
+                                                                            </td>
+                                                                        ) : (<td></td>)
+                                                                    }
+                                                                </>
                                                             )
                                                         }
                                                         <td>

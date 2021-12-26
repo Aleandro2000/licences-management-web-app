@@ -8,7 +8,7 @@ export default function Department() {
     const [department, setDepartment] = useState("R&D");
     const [loading, setLoading] = useState({ display: "none" });
     const [user, setUser] = useContext(UserContext);
-    const [mounted, setMounted] = useState(false);
+    const [mounted, setMounted] = useContext(MountedContext);
     const [result, setResult] = useState([]);
 
     useEffect(() => {

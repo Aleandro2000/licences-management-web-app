@@ -1,5 +1,6 @@
 import React from "react";
 import Department from "./pannel_component/Department";
+import Grade from "./pannel_component/Grade";
 import Licence from "./pannel_component/Licence";
 import University from "./pannel_component/University";
 import Users from "./pannel_component/Users";
@@ -20,6 +21,7 @@ export default function Pannel(props) {
                     <Department />
                     <University type="teacher" />
                     <Users />
+                    <Grade />
                 </div>
             );
         default:
