@@ -1,15 +1,18 @@
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { MountedContext } from "../context/MountedContext";
 import { UserContext } from "../context/UserContext";
 import { getCookie, logout } from "../utils";
 
 export default function Navbar() {
     const [user, setUser] = useContext(UserContext);
+    const [mounted, setMounted] = useContext(MountedContext);
     const history = useHistory();
 
     const handleLogout = async () => {
         await logout();
         await setUser();
+        await setMounted(false);
         await history.push("/home");
     }
 
