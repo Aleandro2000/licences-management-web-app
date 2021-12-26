@@ -110,7 +110,7 @@ export default function Grade() {
         return (
             <div className='overflow-auto custom-card'>
                 <button className="btn btn-dark mt-4 mb-4" onClick={() => handleDisplay("student")}>
-                    DISPLAY GRADES
+                    <i className="fa fa-refresh" /> REFRESH
                 </button>
                 <table className="table">
                     <thead>
