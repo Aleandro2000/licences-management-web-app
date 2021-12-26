@@ -113,7 +113,7 @@ export default function University(props) {
                                             universities.map((item, index) => {
                                                 return (
                                                     <tr key={index}>
-                                                        <td>{index + 1}</td>
+                                                        <th>{index + 1}</th>
                                                         <td>{item.student.username}</td>
                                                         <td>{item.name.toUpperCase()}</td>
                                                         {
@@ -156,7 +156,7 @@ export default function University(props) {
                                             universities.map((item, index) => {
                                                 return (
                                                     <tr key={index}>
-                                                        <td>{index + 1}</td>
+                                                        <th>{index + 1}</th>
                                                         <td>{item.student.username}</td>
                                                         <td>{item.name.toUpperCase()}</td>
                                                         {

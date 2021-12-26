@@ -39,6 +39,15 @@ export class DiplomaService {
     }
   }
 
+  async grade(diplomaDto: DiplomaDto): Promise<any> {
+    try {
+      await Diploma.update({ studentId: diplomaDto.studentId }, { grade: diplomaDto.grade });
+      return { status: 200, message: "Diploma graded!" }
+    } catch (err) {
+      return { status: 400, message: err };
+    }
+  }
+
   async delete(diplomaDto: DiplomaDto): Promise<any> {
     try {
       if (diplomaDto.studentId) {

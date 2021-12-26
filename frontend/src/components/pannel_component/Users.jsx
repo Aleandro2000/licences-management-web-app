@@ -49,7 +49,7 @@ export default function Users() {
                     </thead>
                     <tbody>
                         {
-                            users.map((item, index) => {
+                            users?.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>

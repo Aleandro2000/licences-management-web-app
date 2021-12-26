@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { MountedContext } from "../context/MountedContext";
 
 export default function Register() {
     const [message, setMessage] = useState();
     const [loading, setLoading] = useState({ display: "none" });
+    const [mounted, setMounted] = useContext(MountedContext);
 
     const handleRegister = async (event) => {
         event.preventDefault();
         setLoading({ display: "block" });
+        setMounted(false);
         await fetch("/auth/register", {
             method: "POST",
             headers: {

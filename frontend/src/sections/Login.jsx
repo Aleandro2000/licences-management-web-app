@@ -2,17 +2,20 @@ import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { MountedContext } from "../context/MountedContext";
 import { UserContext } from "../context/UserContext";
 
 export default function Login() {
     const [user, setUser] = useContext(UserContext);
     const [message, setMessage] = useState();
     const [loading, setLoading] = useState({display: "none"});
+    const [mounted, setMounted] = useContext(MountedContext);
     const history = useHistory();
 
     const handleLogin = async (event) => {
         event.preventDefault();
         setLoading({display: "block"});
+        setMounted(false);
         const type = event.target.type.value;
         await fetch("/auth/login", {
             method: "POST",
