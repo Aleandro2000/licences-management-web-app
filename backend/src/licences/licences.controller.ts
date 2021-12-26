@@ -28,6 +28,13 @@ export class LicencesController {
   async find(@Req() request: Request) {
     return await this.licencesService.find(request);
   }
+  
+  @Get("findbyid")
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseGuards(JwtAuthGuard)
+  async findById(@Body() licenceDto: LicenceDto) {
+    return await this.licencesService.findById(licenceDto);
+  }
 
   @Delete("delete")
   @UsePipes(new ValidationPipe({ transform: true }))

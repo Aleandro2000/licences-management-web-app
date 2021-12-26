@@ -57,6 +57,16 @@ export class LicencesService {
     }
   }
 
+  async findById(licenceDto: LicenceDto): Promise<any> {
+    try {
+      const result = await createQueryBuilder('licence', 'l').innerJoinAndSelect('l.university', 'u.studentId=' + licenceDto.studentId).getMany();
+      return { status: 200, result: result };
+    }
+    catch (err) {
+      return { status: 400, message: err };
+    }
+  }
+
   async delete(licenceDto: LicenceDto): Promise<any> {
     try {
       if (licenceDto.studentId) {

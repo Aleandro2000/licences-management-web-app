@@ -11,6 +11,7 @@ export default function Grade() {
     const [mounted, setMounted] = useContext(MountedContext);
     const [grade, setGrade] = useState();
     const [university, setUniversity] = useState();
+    const [licences, setLicences] = useState([]);
 
     const handleDisplay = async () => {
         await fetch("/auth/findall", {
@@ -60,6 +61,50 @@ export default function Grade() {
             return () => handleDisplay();
         }
     }, [mounted])
+
+    const handleDisplayLicences = async id => {
+        await fetch('/licence/findbyid', {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "Authorization": "Bearer " + getCookie("jwt")
+            },
+            body: JSON.stringify({
+                studentId: id
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                setLicences(data.result);
+                setLoading({ display: "none" });
+            })
+            .catch(err => {
+                setMessage(err);
+                setLoading({ display: "none" });
+            });
+    };
+
+    const _displayLicences = licences => {
+        if (licences)
+            return licences.map((item, index) => {
+                return (
+                    <div className="custom-card" key={index}>
+                        <br />
+                        <h4>
+                            {item.title}
+                        </h4>
+                        <b>
+                            -{item.university.name.toUpperCase()}-
+                        </b>
+                        <br /><br />
+                        <p align="justify">
+                            {item.content}
+                        </p>
+                        <br />
+                    </div>
+                );
+            });
+    };
 
     const _display = () => {
         return (
@@ -114,7 +159,7 @@ export default function Grade() {
                                                         </button>
                                                     </td>
                                                     <td>
-                                                        <button className="btn btn-dark w-100">
+                                                        <button className="btn btn-dark w-100" onClick={() => handleDisplayLicences(item.id)}>
                                                             DISPLAY
                                                         </button>
                                                     </td>
@@ -156,6 +201,8 @@ export default function Grade() {
                 ) : (<></>)
             }
             {_display()}
+            <br />
+            {_displayLicences(licences)}
         </>
     );
 }
