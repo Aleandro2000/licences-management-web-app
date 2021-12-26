@@ -99,7 +99,11 @@ export default function Grade() {
                                                     </td>
                                                 </>
                                             ) : (
-                                                <><td /><td /><td /></>
+                                                <>
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                </>
                                             )
                                         }
                                     </tr>
