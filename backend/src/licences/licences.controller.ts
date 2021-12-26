@@ -29,7 +29,7 @@ export class LicencesController {
     return await this.licencesService.find(request);
   }
   
-  @Get("findbyid")
+  @Post("findbyid")
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseGuards(JwtAuthGuard)
   async findById(@Body() licenceDto: LicenceDto) {

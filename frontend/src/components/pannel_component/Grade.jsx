@@ -84,7 +84,7 @@ export default function Grade() {
             });
     };
 
-    const _displayLicences = licences => {
+    const _displayLicences = () => {
         if (licences)
             return licences.map((item, index) => {
                 return (
@@ -202,7 +202,7 @@ export default function Grade() {
             }
             {_display()}
             <br />
-            {_displayLicences(licences)}
+            {_displayLicences()}
         </>
     );
 }
