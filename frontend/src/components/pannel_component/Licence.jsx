@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { MountedContext } from "../../context/MountedContext";
 import { UniversitiesContext, UserContext } from "../../context/UserContext";
 import { getCookie } from "../../utils";
 
@@ -9,6 +10,7 @@ export default function Licence() {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState({ display: "none" });
     const [licences, setLicences] = useState([]);
+    const [mounted, setMounted] = useContext(MountedContext);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -35,6 +37,7 @@ export default function Licence() {
                 setMessage(err);
                 setLoading({ display: "none" });
             });
+        setMounted(false);
     }
 
     const handleChange = e => {
@@ -58,6 +61,31 @@ export default function Licence() {
                 setMessage(err);
                 setLoading({ display: "none" });
             });
+        setMounted(false);
+    };
+
+    const handleDelete = async id => {
+        setLoading({ display: "block" });
+        await fetch('/licence/delete', {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "Authorization": "Bearer " + getCookie("jwt")
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                setMessage(data.message);
+                setLoading({ display: "none" });
+            })
+            .catch(err => {
+                setMessage(err);
+                setLoading({ display: "none" });
+            });
+        setMounted(false);
     };
 
     const _displayLicences = licences => {
@@ -66,6 +94,9 @@ export default function Licence() {
                 return (
                     <div className="custom-card" key={index}>
                         <br />
+                        <button className="btn btn-dark" onClick={() => handleDelete(item.id)}>
+                            <i className="fa fa-minus" /> DELETE
+                        </button>
                         <h4>
                             {item.title}
                         </h4>
@@ -83,9 +114,27 @@ export default function Licence() {
     };
 
     useEffect(() => {
-        if (!universities.length)
+        if (!mounted) {
+            setMounted(false);
+            setLoading({ display: "block" });
             setLicences([]);
-    }, [universities]);
+            fetch('/licence/find', {
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Authorization": "Bearer " + getCookie("jwt")
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setLicences(data.result);
+                    setLoading({ display: "none" });
+                })
+                .catch(err => {
+                    setMessage(err);
+                    setLoading({ display: "none" });
+                });
+        }
+    }, [mounted]);
 
     return (
         <>

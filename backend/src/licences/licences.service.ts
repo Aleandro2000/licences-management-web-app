@@ -69,8 +69,8 @@ export class LicencesService {
 
   async delete(licenceDto: LicenceDto): Promise<any> {
     try {
-      if (licenceDto.studentId) {
-        await Licence.delete({ studentId: licenceDto.studentId });
+      if (licenceDto.id) {
+        await Licence.delete({ id: licenceDto.id });
         return { status: 200, message: "Licence succesfully deleted!" };
       }
       else
