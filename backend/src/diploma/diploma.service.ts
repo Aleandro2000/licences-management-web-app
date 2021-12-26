@@ -11,7 +11,7 @@ export class DiplomaService {
         diploma = await Diploma.find({ studentId: diplomaDto.studentId });
         if (diploma.length) {
           diploma = await Diploma.update({ studentId: diplomaDto.studentId }, { grade: diplomaDto.grade, universityId: diplomaDto.universityId });
-          return { staus: 200, result: diploma };
+          return { staus: 200, message: "Licence graded!" };
         }
         else {
           diploma = new Diploma();
@@ -19,7 +19,7 @@ export class DiplomaService {
           diploma.universityId = diplomaDto.universityId;
           diploma.grade = diplomaDto.grade;
           await diploma.save(diploma);
-          return { staus: 200, result: diploma };
+          return { staus: 200, message: "Licence graded!" };
         }
       }
       else

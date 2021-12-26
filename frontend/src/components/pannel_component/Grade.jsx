@@ -30,19 +30,6 @@ export default function Grade() {
             });
     }
 
-    const handleChange = e => type => {
-        switch (type) {
-            case "grade":
-                setGrade(e.target.value);
-                break;
-            case "university":
-                setUniversity(e.target.value);
-                break;
-            default:
-                break;
-        }
-    }
-
     const handleMark = async studentId => {
         await fetch("/diploma/upload", {
             method: "POST",
@@ -99,7 +86,7 @@ export default function Grade() {
                                         <td>
                                             {
                                                 item.university.length ? (
-                                                    <select aria-label='University' className="form-select" onChange={handleChange("university")} id="type" name="type">
+                                                    <select aria-label='University' className="form-select" onChange={e => setUniversity(e.target.value)} id="type" name="type">
                                                         <option aria-labelledby="SHOW&SELECT" value="">SHOW&amp;SELECT</option>
                                                         {
                                                             item.university.map((item, index) => {
@@ -119,7 +106,7 @@ export default function Grade() {
                                             item.teacher.id === user.result.id ? (
                                                 <>
                                                     <td>
-                                                        <input className="form-control" type="number" name="grade" min="0" max="10" step="0.01" onChange={handleChange("grade")} placeholder="Grade" required />
+                                                        <input className="form-control" type="number" name="grade" min="0" max="10" step="0.01" onChange={e => setGrade(e.target.value)} placeholder="Grade" required />
                                                     </td>
                                                     <td>
                                                         <button className="btn btn-dark w-100" onClick={() => handleMark(item.id)}>
