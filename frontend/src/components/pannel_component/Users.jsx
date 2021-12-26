@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { MountedContext } from "../../context/MountedContext";
 import { getCookie } from "../../utils";
 
-export default function Users(props) {
+export default function Users() {
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState({ display: "none" });
     const [mounted, setMounted] = useContext(MountedContext);
 
-    const handleDisplay = async type => {
+    const handleDisplay = async () => {
         await fetch("/auth/findall", {
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
@@ -29,7 +29,7 @@ export default function Users(props) {
     useEffect(() => {
         if (!mounted) {
             setMounted(true);
-            return () => handleDisplay(props.type);
+            return () => handleDisplay();
         }
     }, [mounted])
 
@@ -65,58 +65,25 @@ export default function Users(props) {
         );
     };
 
-    switch (props.type) {
-        case "student":
-            return (
-                <>
-                    <br /><br />
-                    <center>
-                        <div className="spinner-border" role="status" style={loading}>
-                            <span className="sr-only" />
-                        </div>
-                    </center>
-                    <br />
-                    {
-                        message ? (
-                            <div className="alert alert-dark" role="alert">
-                                <b>
-                                    {message}
-                                </b>
-                            </div>
-                        ) : (<></>)
-                    }
-                    <br />
-                    <button className="btn btn-dark" onClick={() => handleDisplay("teacher")}>
-                        DISPLAY STUDENTS WITH TEACHERS
-                    </button>
-                </>
-            );
-        case "teacher":
-            return (
-                <>
-                    <br /><br />
-                    <center>
-                        <div className="spinner-border" role="status" style={loading}>
-                            <span className="sr-only" />
-                        </div>
-                    </center>
-                    <br />
-                    {
-                        message ? (
-                            <div className="alert alert-dark" role="alert">
-                                <b>
-                                    {message}
-                                </b>
-                            </div>
-                        ) : (<></>)
-                    }
-                    {_display()}
-                </>
-            );
-        default:
-            return (
-                <>
-                </>
-            );
-    }
+    return (
+        <>
+            <br /><br />
+            <center>
+                <div className="spinner-border" role="status" style={loading}>
+                    <span className="sr-only" />
+                </div>
+            </center>
+            <br />
+            {
+                message ? (
+                    <div className="alert alert-dark" role="alert">
+                        <b>
+                            {message}
+                        </b>
+                    </div>
+                ) : (<></>)
+            }
+            {_display()}
+        </>
+    );
 }

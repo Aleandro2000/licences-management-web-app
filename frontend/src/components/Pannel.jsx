@@ -10,14 +10,14 @@ export default function Pannel(props) {
                 <div className="container mt-5">
                     <University type="student" />
                     <Licence />
-                    <Users type="student" />
+                    <Users />
                 </div>
             );
         case "teacher":
             return (
                 <div className="container mt-5">
                     <University type="teacher" />
-                    <Users type="teacher" />
+                    <Users />
                 </div>
             );
         default:
