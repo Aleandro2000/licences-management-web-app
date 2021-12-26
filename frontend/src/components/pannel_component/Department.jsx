@@ -113,7 +113,7 @@ export default function Department() {
                                                             <i className='fa fa-minus' /> DELETE
                                                         </button>
                                                     </td>
-                                                ) : (<></>)
+                                                ) : (<td></td>)
                                             }
                                         </tr>
                                     );

@@ -29,7 +29,7 @@ export class UsersService {
 
   async findAll(): Promise<any> {
     try {
-      const result = await createQueryBuilder('student', 's').innerJoinAndSelect('s.teacher', 't').getMany()
+      const result = await createQueryBuilder('student', 's').innerJoinAndSelect('s.university', 'u').innerJoinAndSelect('s.teacher', 't').getMany()
       return { status: 200, result: result }
     } catch (err) {
       return { status: 400, message: err }

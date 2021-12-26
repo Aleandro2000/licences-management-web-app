@@ -1,8 +1,8 @@
-export function logout() {
+export const logout = () => {
     document.cookie = "jwt=; expires=" + new Date(0);
-}
+};
 
-export function getCookie(name) {
+export const getCookie = name => {
     const cookieArr = document.cookie.split(";");
 
     for (let element of cookieArr) {
@@ -12,4 +12,4 @@ export function getCookie(name) {
     }
 
     return null;
-}
+};

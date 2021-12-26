@@ -9,7 +9,8 @@ export default function Grade() {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState({ display: "none" });
     const [mounted, setMounted] = useContext(MountedContext);
-    const [mark, setMark] = useState();
+    const [grade, setGrade] = useState();
+    const [university, setUniversity] = useState();
 
     const handleDisplay = async () => {
         await fetch("/auth/findall", {
@@ -29,20 +30,35 @@ export default function Grade() {
             });
     }
 
-    const handleChange = e => {
-        setMark(e.target.value);
+    const handleChange = e => type => {
+        switch (type) {
+            case "grade":
+                setGrade(e.target.value);
+                break;
+            case "university":
+                setUniversity(e.target.value);
+                break;
+            default:
+                break;
+        }
     }
 
-    const handleMark = async () => {
-        await fetch("/diploma/grade", {
+    const handleMark = async studentId => {
+        await fetch("/diploma/upload", {
+            method: "POST",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 "Authorization": "Bearer " + getCookie("jwt")
-            }
+            },
+            body: JSON.stringify({
+                grade: grade,
+                studentId: studentId,
+                universityId: university
+            })
         })
             .then(response => response.json())
             .then(data => {
-                setUsers(data.result);
+                setMessage(data.message);
                 setLoading({ display: "none" });
             })
             .catch(err => {
@@ -69,6 +85,7 @@ export default function Grade() {
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Student</th>
+                            <th scope="col">University</th>
                             <th scope="col">Teacher</th>
                             <th scope="col">Grade</th>
                         </tr>
@@ -80,15 +97,32 @@ export default function Grade() {
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td>{item.username}</td>
+                                        <td>
+                                            {
+                                                item.university.length ? (
+                                                    <select aria-label='University' className="form-select" defaultValue={item.university[0].name} onChange={handleChange("university")} id="type" name="type">
+                                                        {
+                                                            item.university.map((item, index) => {
+                                                                return <option key={index} aria-labelledby={item.name.toUpperCase()} value={item.id}>{item.name.toUpperCase()}</option>;
+                                                            })
+                                                        }
+                                                    </select>
+                                                ) : (
+                                                    <>
+                                                        NONE
+                                                    </>
+                                                )
+                                            }
+                                        </td>
                                         <td>{item.teacher.username}</td>
                                         {
                                             item.teacher.id === user.result.id ? (
                                                 <>
                                                     <td>
-                                                        <input className="form-control" type="number" name="grade" min="0" max="10" step="0.01" onChange={handleChange} placeholder="Grade" required />
+                                                        <input className="form-control" type="number" name="grade" min="0" max="10" step="0.01" onChange={handleChange("grade")} placeholder="Grade" required />
                                                     </td>
                                                     <td>
-                                                        <button className="btn btn-dark w-100">
+                                                        <button className="btn btn-dark w-100" onClick={() => handleMark(item.id)}>
                                                             MARK
                                                         </button>
                                                     </td>

@@ -13,14 +13,6 @@ export class DiplomaController {
   async upload(@Body() diplomaDto: DiplomaDto) {
     return await this.diplomaService.upload(diplomaDto);
   }
-  
-  @Post("grade")
-  @UsePipes(new ValidationPipe({ transform: true }))
-  @UseGuards(JwtAuthGuard)
-  async grade(@Body() diplomaDto: DiplomaDto) {
-    return await this.diplomaService.grade(diplomaDto);
-  }
-
 
   @Get("findall")
   @UsePipes(new ValidationPipe({ transform: true }))
