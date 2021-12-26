@@ -14,6 +14,27 @@ export class UsersController {
   async getUser (@Req() request: Request) {
     return await this.usersService.getUser(request)
   }
+  
+  @Get('findall')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseGuards(JwtAuthGuard)
+  async findAll () {
+    return await this.usersService.findAll()
+  }
+
+  @Post('addstudent')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseGuards(JwtAuthGuard)
+  async addStudent (@Body() userDto: UserDto, @Req() request: Request) {
+    return await this.usersService.addStudent(userDto, request)
+  }
+  
+  @Post('removestudent')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseGuards(JwtAuthGuard)
+  async removeStudent (@Body() userDto: UserDto, @Req() request: Request) {
+    return await this.usersService.removeStudent(userDto, request)
+  }
 
   @Post('register')
   @UsePipes(new ValidationPipe({ transform: true }))

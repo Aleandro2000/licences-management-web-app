@@ -5,6 +5,7 @@ import { Teacher } from './entities/teacher.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
+import { createQueryBuilder } from 'typeorm'
 
 @Injectable()
 export class UsersService {
@@ -21,6 +22,38 @@ export class UsersService {
         default:
           return { status: 400, message: "Failed to get user!" }
       }
+    } catch (err) {
+      return { status: 400, message: err }
+    }
+  }
+
+  async findAll(): Promise<any> {
+    try {
+      const result = await createQueryBuilder('student', 's').innerJoinAndSelect('s.teacher', 't').getMany()
+      return { status: 200, result: result }
+    } catch (err) {
+      return { status: 400, message: err }
+    }
+  }
+
+  async addStudent(userDto: UserDto, request: Request): Promise<any> {
+    try {
+      const data = await this.jwtService.verify(request.cookies.jwt)
+      const result = await Student.update({ id: userDto.id }, { teacherId: data.user.id });
+      if (result)
+        return { status: 200, message: "Student added!" }
+      else
+        return { status: 200, message: "Fail to add student!" }
+    } catch (err) {
+      return { status: 400, message: err }
+    }
+  }
+  
+  async removeStudent(userDto: UserDto, request: Request): Promise<any> {
+    try {
+      const data = await this.jwtService.verify(request.cookies.jwt)
+      await Student.update({ id: userDto.id, teacherId: data.user.id }, { teacherId: null });
+      return { status: 200, message: "Student removed!" }
     } catch (err) {
       return { status: 400, message: err }
     }

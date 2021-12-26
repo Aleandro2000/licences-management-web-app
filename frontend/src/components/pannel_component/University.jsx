@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useEffect, useState } from "react";
+import { MountedContext } from '../../context/MountedContext';
 import { UniversitiesContext, UserContext } from '../../context/UserContext';
 import { getCookie } from "../../utils";
 
@@ -8,7 +9,7 @@ export default function University(props) {
     const [universities, setUniversities] = useContext(UniversitiesContext);
 
     const [university, setUniversity] = useState("");
-    const [mounted, setMounted] = useState(false);
+    const [mounted, setMounted] = useContext(MountedContext);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState({ display: "none" });
 
@@ -50,6 +51,40 @@ export default function University(props) {
             .then(data => setMessage(data.message))
             .catch(err => setMessage(err.message));
         setLoading({ display: "none" });
+        setMounted(false);
+    };
+
+    const handleAdd = async id => {
+        await fetch("/auth/addstudent", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "Authorization": "Bearer " + getCookie("jwt")
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        })
+            .then(response => response.json())
+            .then(data => setMessage(data.message))
+            .catch(err => setMessage(err));
+        setMounted(false);
+    };
+
+    const handleRemove = async id => {
+        await fetch("/auth/removestudent", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "Authorization": "Bearer " + getCookie("jwt")
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        })
+            .then(response => response.json())
+            .then(data => setMessage(data.message))
+            .catch(err => setMessage(err));
         setMounted(false);
     };
 
@@ -124,6 +159,21 @@ export default function University(props) {
                                                         <td>{index + 1}</td>
                                                         <td>{item.student.username}</td>
                                                         <td>{item.name.toUpperCase()}</td>
+                                                        {
+                                                            !item.student.teacherId ? (
+                                                                <td>
+                                                                    <button aria-label='Delete' className="border border-dark btn btn-light w-100" onClick={() => handleAdd(item.student.id)}>
+                                                                        <i className='fa fa-plus' /> ADD
+                                                                    </button>
+                                                                </td>
+                                                            ) : (
+                                                                <td>
+                                                                    <button aria-label='Delete' className="border border-dark btn btn-light w-100" onClick={() => handleRemove(item.student.id)}>
+                                                                        <i className='fa fa-minus' /> REMOVE
+                                                                    </button>
+                                                                </td>
+                                                            )
+                                                        }
                                                         <td>
                                                             <button aria-label='Delete' className="border border-dark btn btn-light w-100" onClick={() => handleDelete(item.id)}>
                                                                 <i className='fa fa-minus' /> DELETE
@@ -211,6 +261,19 @@ export default function University(props) {
                         <br />
                     </>
                 );
+            case "teacher":
+                return (
+                    <>
+                        <br />
+                        {
+                            message ? (
+                                <div className="alert alert-dark" role="alert">
+                                    {message}
+                                </div>
+                            ) : (<></>)
+                        }
+                    </>
+                )
             default:
                 return (
                     <>
