@@ -53,6 +53,7 @@ export default function Grade() {
                 setMessage(err);
                 setLoading({ display: "none" });
             });
+        setMounted(false);
     };
 
     useEffect(() => {
