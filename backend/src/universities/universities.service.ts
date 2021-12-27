@@ -18,6 +18,24 @@ export class UniversitiesService {
     }
   }
 
+  async licences(): Promise<any> {
+    try {
+      const result = await createQueryBuilder('licence', 'l').innerJoinAndSelect('l.university', 'u').getMany()
+      return { status: 200, result: result }
+    } catch (err) {
+      return { status: 400, message: err }
+    }
+  }
+
+  async students(): Promise<any> {
+    try {
+      const result = await createQueryBuilder('licence', 'l').innerJoinAndSelect('l.student', 's').getMany()
+      return { status: 200, result: result }
+    } catch (err) {
+      return { status: 400, message: err }
+    }
+  }
+
   async create(request: Request, universityDto: UniversityDto): Promise<any> {
     try {
       const data = await this.jwtService.verify(request.cookies.jwt)

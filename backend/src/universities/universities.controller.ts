@@ -15,6 +15,20 @@ export class UniversitiesController {
     return await this.universitiesService.findAll()
   }
 
+  @Get('licences')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseGuards(JwtAuthGuard)
+  async licences () {
+    return await this.universitiesService.licences()
+  }
+
+  @Get('students')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseGuards(JwtAuthGuard)
+  async students () {
+    return await this.universitiesService.students()
+  }
+
   @Post('create')
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseGuards(JwtAuthGuard)
